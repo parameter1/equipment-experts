@@ -18,6 +18,7 @@
     "test": "yarn lint"
   },
   "dependencies": {
+    "envalid": "^7.0.0",
     "newrelic": "^7.1.2"
   },
   "devDependencies": {
