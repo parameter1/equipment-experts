@@ -11,7 +11,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = cleanEnv(process.env, {
   // App configs
-  BASE_MONGO_URI: str({ desc: 'The BaseCMS MongoDB instance to connect to.' }),
+  BASECMS_MONGO_DSN: str({ desc: 'The BaseCMS MongoDB instance to connect to.' }),
+  BASECMS_TENANT_KEY: str({ desc: 'The BaseCMS tenant key', default: 'randallreilly_all' }),
   API_URI: str({ desc: 'The external API URI', default: 'https://www.equipmentexperts.com/api/v1' }),
   API_TOKEN: str({ desc: 'The API token to use with the API_URI' }),
   // Infra configs
