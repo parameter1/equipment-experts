@@ -45,6 +45,13 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@godaddy/terminus@^4.6.0":
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@godaddy/terminus/-/terminus-4.6.0.tgz#1e746cf1715cf39866fd4a25569deb88774dda27"
+  integrity sha512-5OaPBRYIex8YcvK+Jk6/wUNulaQMWt1RWIpfYmRbP+1On5FRf3bumDWBni3V0RQRkm3JIvZiXbIndumEtasOMg==
+  dependencies:
+    stoppable "^1.1.0"
+
 "@grpc/grpc-js@^1.2.5":
   version "1.2.10"
   resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.2.10.tgz#f316d29a45fcc324e923d593cb849d292b1ed598"
@@ -954,6 +961,14 @@
   integrity sha512-gQSKGkns0yWjPkvzsRaswxtEnUUMi6FfrCFMlHOK/9eu1JhC7nCeW9gSJsNFOka+vblqcmFlJCo4W9uESiY6/w==
   dependencies:
     gulp "^4.0.2"
+
+"@parameter1/terminus@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@parameter1/terminus/-/terminus-1.4.0.tgz#89520518481d2bca1394092c6db8d28c3a9d27ab"
+  integrity sha512-FBPUNZRRA+Zx+ZMJk6/DBxbjzVKfDx5Az6/pA3lacMMG965axxIFERKpF+H0Xh9AagM56qJH9M306yOzV/MA9Q==
+  dependencies:
+    "@godaddy/terminus" "^4.6.0"
+    envalid "^7.0.0"
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
@@ -2268,6 +2283,11 @@ dot-prop@^6.0.1:
   integrity sha512-tE7ztYzXHIeyvc7N+hR3oi7FIbf/NIjVP9hmAt3yMXzrQ072/fpjGLx2GxNxGxUl5V73MEqYzioOMoVhGMJ5cA==
   dependencies:
     is-obj "^2.0.0"
+
+dotenv@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
+  integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
 duplexer@^0.1.1:
   version "0.1.2"
@@ -6175,6 +6195,11 @@ static-extend@^0.1.1:
   dependencies:
     define-property "^0.2.5"
     object-copy "^0.1.0"
+
+stoppable@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/stoppable/-/stoppable-1.1.0.tgz#32da568e83ea488b08e4d7ea2c3bcc9d75015d5b"
+  integrity sha512-KXDYZ9dszj6bzvnEMRYvxgeTHU74QBFL54XKtP3nyMuJ81CFYtABZ3bAzL2EdFUaEwJOBOgENyFj3R7oTzDyyw==
 
 stream-exhaust@^1.0.1:
   version "1.0.2"
