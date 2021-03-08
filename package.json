@@ -1,0 +1,23 @@
+{
+  "name": "equipment-experts",
+  "author": "Josh Worden <josh@parameter1.com>",
+  "private": true,
+  "description": "EquipmentExperts.com API services",
+  "repository": "https://github.com/parameter1/equipment-experts.git",
+  "license": "MIT",
+  "scripts": {
+    "lerna": "lerna",
+    "test": "lerna run test",
+    "lint": "lerna run lint"
+  },
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
