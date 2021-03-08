@@ -2,7 +2,7 @@ require('./newrelic');
 const bootService = require('@parameter1/terminus/boot-service');
 const { log } = require('@parameter1/terminus/utils');
 const { filterUri } = require('@parameter1/mongodb/utils');
-const basedb = require('./basedb');
+const basedb = require('./db/client');
 const newrelic = require('./newrelic');
 const server = require('./server');
 const pkg = require('../package.json');
