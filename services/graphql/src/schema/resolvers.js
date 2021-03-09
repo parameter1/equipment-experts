@@ -20,6 +20,10 @@ module.exports = merge({
     /**
      *
      */
+    async find(_, { contentId }, { repo }) {
+      const cursor = await repo.find({ contentId });
+      return cursor.toArray();
+    },
   },
   /**
    *

@@ -10,6 +10,9 @@ type Query {
 
   "Retrieves an index by id."
   retrieve(id: ObjectID!): SearchIndex
+
+  "Retrieves indexes for a content id."
+  find(contentId: Int!): [SearchIndex!]!
 }
 
 type Mutation {
@@ -23,6 +26,10 @@ type SearchIndex {
   industry: String!
   manufacturer: String!
   model: String
+}
+
+input SearchIndexQueryInput {
+  contentId: Int!
 }
 }
 
