@@ -18,6 +18,9 @@ type Query {
 type Mutation {
   "A generic ping/pong test mutation."
   ping: String!
+
+  "Creates a content search index."
+  create(input: CreateSearchIndexInput!): SearchIndex!
 }
 
 type SearchIndex {
@@ -31,6 +34,12 @@ type SearchIndex {
 input SearchIndexQueryInput {
   contentId: Int!
 }
+
+input CreateSearchIndexInput {
+  contentId: Int!
+  industry: String!
+  manufacturer: String!
+  model: String
 }
 
 `;

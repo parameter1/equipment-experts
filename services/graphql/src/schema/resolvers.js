@@ -35,6 +35,12 @@ module.exports = merge({
     ping() {
       return 'pong';
     },
+    /**
+     * Creates a new SearchIndex
+     */
+    create(_, { input }, { repo }) {
+      return repo.insertOne({ doc: input });
+    },
   },
 
   /**
