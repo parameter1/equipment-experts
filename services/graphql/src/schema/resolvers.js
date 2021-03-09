@@ -1,29 +1,44 @@
 const merge = require('lodash.merge');
 
-module.exports = merge(
-  {
+module.exports = merge({
+  /**
+   *
+   */
+  Query: {
     /**
      *
      */
-    Mutation: {
-      /**
-       *
-       */
-      ping() {
-        return 'pong';
-      },
+    ping() {
+      return 'pong';
     },
-
+    /**
+     * Returns a SearchIndex by id
+     */
+    retrieve(_, { id }, { repo }) {
+      return repo.findByObjectId(id);
+    },
     /**
      *
      */
-    Query: {
-      /**
-       *
-       */
-      ping() {
-        return 'pong';
-      },
+  },
+  /**
+   *
+   */
+  Mutation: {
+    /**
+     *
+     */
+    ping() {
+      return 'pong';
     },
   },
-);
+
+  /**
+   *
+   */
+  SearchIndex: {
+    id({ _id }) {
+      return _id;
+    },
+  },
+});
