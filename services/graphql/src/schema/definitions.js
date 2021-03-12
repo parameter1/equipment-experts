@@ -21,6 +21,9 @@ type Mutation {
 
   "Creates a content search index."
   create(input: CreateSearchIndexInput!): SearchIndex!
+
+  "Update a content search index."
+  update(input: UpdateSearchIndexInput!): SearchIndex!
 }
 
 type SearchIndex {
@@ -36,6 +39,14 @@ input SearchIndexQueryInput {
 }
 
 input CreateSearchIndexInput {
+  contentId: Int!
+  industry: String!
+  manufacturer: String!
+  model: String
+}
+
+input UpdateSearchIndexInput {
+  id: ObjectID!
   contentId: Int!
   industry: String!
   manufacturer: String!

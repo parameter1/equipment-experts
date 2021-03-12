@@ -41,6 +41,19 @@ module.exports = merge({
     create(_, { input }, { repo }) {
       return repo.insertOne({ doc: input });
     },
+    /**
+     * Updates a SearchIndex
+     */
+    async update(_, { input }, { repo }) {
+      const { id, ...payload } = input;
+      const _id = repo.coerceObjectId(id);
+      await repo.updateOne({
+        query: { _id },
+        update: { $set: payload },
+        options: { strict: true },
+      });
+      return repo.findByObjectId({ id: _id, options: { strict: true } });
+    },
   },
 
   /**
