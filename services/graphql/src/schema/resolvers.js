@@ -54,6 +54,16 @@ module.exports = merge({
       });
       return repo.findByObjectId({ id: _id, options: { strict: true } });
     },
+    /**
+     * Deletes a SearchIndex
+     */
+    async delete(_, { id }, { repo }) {
+      const { result } = await repo.deleteOne({
+        query: { _id: repo.coerceObjectId(id) },
+        options: { strict: true },
+      });
+      return Boolean(result.ok);
+    },
   },
 
   /**

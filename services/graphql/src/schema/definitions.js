@@ -24,6 +24,9 @@ type Mutation {
 
   "Update a content search index."
   update(input: UpdateSearchIndexInput!): SearchIndex!
+
+  "Delete a content search index."
+  delete(id: ObjectID!): Boolean!
 }
 
 type SearchIndex {
