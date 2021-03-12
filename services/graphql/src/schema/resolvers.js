@@ -15,7 +15,7 @@ module.exports = merge({
      * Returns a SearchIndex by id
      */
     retrieve(_, { id }, { repo }) {
-      return repo.findByObjectId(id);
+      return repo.findByObjectId({ id, options: { strict: true } });
     },
     /**
      *
