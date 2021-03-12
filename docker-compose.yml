@@ -1,0 +1,49 @@
+version: '3.8'
+
+x-env-defaults: &env
+  NEW_RELIC_ENABLED: ${NEW_RELIC_ENABLED-0}
+  NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY-(unset)}
+  NODE_ENV: development
+  TERMINUS_TIMEOUT: 1000
+  TERMINUS_SHUTDOWN_DELAY: 0
+  YARN_CACHE_FOLDER: /.yarn-cache
+
+x-node-defaults: &node
+  tty: true
+  init: true
+  image: node:14.15-alpine
+  working_dir: /src
+  restart: always
+  volumes:
+    - .:/src:cached
+    - ./node_modules:/src/node_modules:delegated
+    - yarn-cache:/.yarn-cache
+  environment:
+    <<: *env
+
+services:
+  yarn:
+    <<: *node
+    entrypoint: ["yarn"]
+
+  mongodb:
+    image: mongo:4.4
+    volumes:
+      - mongodb:/data/db
+
+  graphql:
+    <<: *node
+    working_dir: /src/services/graphql
+    entrypoint: ["yarn"]
+    command: ["dev"]
+    depends_on: ["mongodb"]
+    ports:
+      - "33733:33733"
+    environment:
+      <<: *env
+      BASECMS_MONGO_DSN: ${BASECMS_MONGO_DSN-mongodb://mongodb}
+      API_TOKEN: ${API_TOKEN}
+
+volumes:
+  yarn-cache: {}
+  mongodb: {}
