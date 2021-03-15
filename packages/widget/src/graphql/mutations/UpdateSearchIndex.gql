@@ -1,0 +1,9 @@
+mutation UpdateSearchIndex($update: UpdateSearchIndexInput!) {
+  update(input:$update) {
+    id
+    contentId
+    industry
+    manufacturer
+    model
+  }
+}

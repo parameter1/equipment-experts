@@ -3,6 +3,7 @@
     :value="value"
     :multiple="false"
     :async="true"
+    :clearable="false"
     :load-options="loadOptions"
     @input="update"
   >

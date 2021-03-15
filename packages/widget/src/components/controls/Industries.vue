@@ -3,6 +3,7 @@
     :value="value"
     :multiple="false"
     :options="options"
+    :clearable="false"
     @input="update"
   >
     <div slot="value-label" slot-scope="{ node }">{{ node.id }}</div>

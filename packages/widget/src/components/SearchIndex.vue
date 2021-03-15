@@ -30,6 +30,7 @@ import IconSave from './icons/Save.vue';
 
 import CreateSearchIndex from '../graphql/mutations/CreateSearchIndex.gql';
 import DeleteSearchIndex from '../graphql/mutations/DeleteSearchIndex.gql';
+import UpdateSearchIndex from '../graphql/mutations/UpdateSearchIndex.gql';
 
 export default {
   components: {
@@ -80,7 +81,7 @@ export default {
       this.save({
         industry: this.industry,
         manufacturer: this.manufacturer,
-        model: values,
+        model: values ? values : null,
       });
     },
     async save(doc) {
@@ -99,10 +100,15 @@ export default {
           this.loading = false;
         }
       } else {
-        // const mutation = UpdateSearchIndex;
-        console.log('saving!', doc);
         this.loading = true;
-        setTimeout(() => { this.loading = false; }, 3000);
+        const update = { ...doc, id: this.id, contentId: this.contentId };
+        const { data } = await this.$apollo.mutate({
+          mutation: UpdateSearchIndex,
+          variables: { update }
+        });
+        console.log(data);
+        this.loading = false;
+        // Tell the component it's updated? This should probably be higher too.
       }
     },
     async remove() {
