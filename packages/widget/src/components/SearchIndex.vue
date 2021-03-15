@@ -24,7 +24,7 @@
 import Industries from './controls/Industries.vue'
 import Manufacturers from './controls/Manufacturers.vue'
 import Models from './controls/Models.vue'
-import ActionButton from './controls/ActionButton.vue';
+import ActionButton from './ActionButton.vue';
 import IconDelete from './icons/Delete.vue';
 import IconSave from './icons/Save.vue';
 

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import IconRefresh from '../icons/Refresh.vue';
+import IconRefresh from './icons/Refresh.vue';
 
 export default {
   components: {

@@ -47,7 +47,7 @@
 <script>
 import SearchIndex from './components/SearchIndex.vue'
 import IconAdd from './components/icons/Add.vue';
-import ActionButton from './components/controls/ActionButton.vue';
+import ActionButton from './components/ActionButton.vue';
 
 export default {
   name: 'App',
