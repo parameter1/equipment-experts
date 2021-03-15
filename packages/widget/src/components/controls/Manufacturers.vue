@@ -12,7 +12,7 @@
 
 <script>
 import TreeSelect, { ASYNC_SEARCH } from '@riophae/vue-treeselect';
-import Manufacturers from '../../graphql/Manufacturers.gql';
+import FindManufacturers from '../../graphql/queries/FindManufacturers.gql';
 
 export default {
   components: {
@@ -34,7 +34,7 @@ export default {
       if (action === ASYNC_SEARCH) {
         const term = searchQuery || this.value || '';
         const  { data } = await this.$apollo.query({
-          query: Manufacturers,
+          query: FindManufacturers,
           variables: { query: term }
         });
         const results = data ? data.findManufacturers.results : [];

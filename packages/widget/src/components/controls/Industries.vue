@@ -11,11 +11,11 @@
 
 <script>
 import TreeSelect from '@riophae/vue-treeselect';
-import Industries from '../../graphql/Industries.gql';
+import FindIndustries from '../../graphql/queries/FindIndustries.gql';
 
 export default {
   apollo: {
-    findIndustries: Industries,
+    findIndustries: FindIndustries,
   },
   components: {
     TreeSelect,

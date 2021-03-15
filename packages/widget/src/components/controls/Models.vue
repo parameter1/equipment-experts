@@ -12,7 +12,7 @@
 
 <script>
 import TreeSelect, { ASYNC_SEARCH } from '@riophae/vue-treeselect';
-import Models from '../../graphql/Models.gql';
+import FindModels from '../../graphql/queries/FindModels.gql';
 
 export default {
   components: {
@@ -34,7 +34,7 @@ export default {
       if (action === ASYNC_SEARCH) {
         const term = searchQuery || this.value || '';
         const  { data } = await this.$apollo.query({
-          query: Models,
+          query: FindModels,
           variables: { query: term }
         });
         const results = data ? data.findModels.results : [];
