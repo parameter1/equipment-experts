@@ -14,6 +14,13 @@ const app = express();
 app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal']);
 app.use(helmet({ contentSecurityPolicy: false }));
 
+// @todo do better.
+app.use('*', (_, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  next();
+});
+
 app.get('/', (req, res) => {
   res.redirect(301, '/graphql');
 });

@@ -1,19 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <ApolloExample msg="Welcome to Your Vue.js App"/>
+    <h1>EE API</h1>
+    <div v-for="(index, n) in indexes" :key="`index-${n}`">
+      <fieldset>
+        <label>
+          Industry
+          <Industries :selected="index.industry" />
+        </label>
+        <!-- <Manufacturers :selected="index.manufacturer" />
+        <Models :selected="index.model" /> -->
+      </fieldset>
+    </div>
+    <button v-on:click="indexes.push({})">
+      Add an index
+    </button>
   </div>
 </template>
 
 <script>
-import ApolloExample from './components/ApolloExample.vue'
+import Industries from './components/Industries.vue'
+// import Manufacturers from './components/Manufacturers.vue'
+// import Models from './components/Models.vue'
 
 export default {
   name: 'App',
   components: {
-    ApolloExample
-  }
-}
+    Industries,
+    // Manufacturers,
+    // Models,
+  },
+  data() {
+    return {
+      contentId: 1234,
+      // Load this!
+      indexes: [
+        {
+          industry: 'Agriculture',
+          manufacturer: 'John Deere',
+          model: null,
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style>
@@ -24,5 +53,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+fieldset {
+  margin-bottom: 1rem;
 }
 </style>
