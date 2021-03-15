@@ -1,0 +1,9 @@
+mutation CreateSearchIndex($input: CreateSearchIndexInput!) {
+  create(input:$input) {
+    id
+    contentId
+    industry
+    manufacturer
+    model
+  }
+}

@@ -11,7 +11,7 @@
   Industry: Construction, Manufacturer: CAT,   Model: 903D</pre>
     </p>
 
-    <table class="table">
+    <table class="table search-indexes">
       <thead>
         <tr>
           <th>Industry</th>
@@ -25,6 +25,7 @@
           v-for="index in indexes"
           :key="index.id"
           :id="index.id"
+          :content-id="contentId"
           :industry="index.industry"
           :manufacturer="index.manufacturer"
           :model="index.model"
@@ -48,9 +49,20 @@
 import SearchIndex from './components/SearchIndex.vue'
 import IconAdd from './components/icons/Add.vue';
 import ActionButton from './components/ActionButton.vue';
+import FindAll from './graphql/queries/FindAll.gql';
 
 export default {
   name: 'App',
+  apollo: {
+    find: {
+      query: FindAll,
+      variables() {
+        return {
+          contentId: this.contentId,
+        };
+      },
+    },
+  },
   components: {
     SearchIndex,
     ActionButton,
@@ -58,26 +70,23 @@ export default {
   },
   data() {
     return {
-      contentId: 1234,
-      // Load this!
-      indexes: [
-        {
-          id: 's12345678',
-          industry: 'Agriculture',
-          manufacturer: 'John Deere',
-          model: null,
-        },
-      ],
+      contentId: 15064118,
+      queue: [],
     };
+  },
+  computed: {
+    indexes() {
+      return [
+        ...(this.find ? [...this.find] : []),
+        ...(this.queue ? [...this.queue] : []),
+      ];
+    },
   },
   methods: {
     addIndex() {
-      console.log('updating indexes');
-      this.indexes.push({
-        id: this.indexes.length + 1,
-      })
-    }
-  }
+      this.queue.push({ id: this.indexes.length + 1 });
+    },
+  },
 };
 </script>
 
@@ -93,5 +102,14 @@ export default {
 }
 #app thead {
   text-align: left;
+}
+</style>
+
+<style scoped>
+.search-indexes {
+  width: 100%;
+}
+.search-indexes th {
+  width: 30%
 }
 </style>

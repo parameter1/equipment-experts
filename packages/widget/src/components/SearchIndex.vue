@@ -28,6 +28,8 @@ import ActionButton from './ActionButton.vue';
 import IconDelete from './icons/Delete.vue';
 import IconSave from './icons/Save.vue';
 
+import CreateSearchIndex from '../graphql/mutations/CreateSearchIndex.gql';
+
 export default {
   components: {
     Industries,
@@ -40,6 +42,10 @@ export default {
   props: {
     id: {
       type: [String, Number],
+      required: true,
+    },
+    contentId: {
+      type: Number,
       required: true,
     },
     industry: String,
@@ -76,13 +82,20 @@ export default {
         model: values,
       });
     },
-    save(doc) {
+    async save(doc) {
       if (this.isNew) {
-        Object.keys(doc).forEach((k) => {
-          this[k] = doc[k];
-        });
+        // Force set the value so save can work. @todo: pass value up further & call save
+        Object.keys(doc).forEach((k) => { this[k] = doc[k]; });
         if (this.industry && this.manufacturer) {
-          // Create new record to replace this one!
+          this.loading = true;
+          // @todo this needs to replace the current item; do at higher level
+          const input = { ...doc, contentId: this.contentId };
+          const { data } = await this.$apollo.mutate({
+            mutation: CreateSearchIndex,
+            variables: { input }
+          });
+          console.log(data);
+          this.loading = false;
         }
       } else {
         // const mutation = UpdateSearchIndex;

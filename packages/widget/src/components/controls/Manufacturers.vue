@@ -33,7 +33,7 @@ export default {
     async loadOptions({ action, searchQuery, callback }) {
       if (action === ASYNC_SEARCH) {
         const term = searchQuery || this.value || '';
-        const  { data } = await this.$apollo.query({
+        const { data } = await this.$apollo.query({
           query: FindManufacturers,
           variables: { query: term }
         });
