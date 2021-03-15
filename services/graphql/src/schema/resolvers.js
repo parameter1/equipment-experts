@@ -27,20 +27,20 @@ module.exports = merge({
     /**
      * Returns third-party data matching the search query (if present)
      */
-    findIndustries(_, { query }, { client }) {
-      return client.find({ type: 'industries', query });
+    findIndustries(_, { query, page }, { client }) {
+      return client.findIndustries({ query, page });
     },
     /**
      * Returns third-party data matching the search query (if present)
      */
-    findManufacturers(_, { query }, { client }) {
-      return client.find({ type: 'manufacturers', query });
+    findManufacturers(_, { query, page }, { client }) {
+      return client.findManufacturers({ query, page });
     },
     /**
      * Returns third-party data matching the search query (if present)
      */
-    findModels(_, { query }, { client }) {
-      return client.find({ type: 'models', query });
+    findModels(_, { query, page }, { client }) {
+      return client.findModels({ query, page });
     },
   },
   /**
