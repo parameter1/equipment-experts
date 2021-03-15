@@ -1,0 +1,7 @@
+query FindManufacturers($query: String!) {
+  findManufacturers(query: $query) {
+    total
+    results
+    error
+  }
+}

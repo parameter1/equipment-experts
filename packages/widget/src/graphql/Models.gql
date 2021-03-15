@@ -1,0 +1,7 @@
+query FindModels($query: String!) {
+  findModels(query: $query) {
+    total
+    results
+    error
+  }
+}

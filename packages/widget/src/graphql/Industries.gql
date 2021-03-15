@@ -1,0 +1,7 @@
+query FindIndustries($query: String) {
+  findIndustries(query: $query) {
+    total
+    results
+    error
+  }
+}
