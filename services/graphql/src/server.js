@@ -6,6 +6,7 @@ const { get, set } = require('@parameter1/utils');
 const { isProduction } = require('./env');
 const schema = require('./schema');
 const repo = require('./db/repo');
+const client = require('./api-client');
 
 const { STATUS_CODES } = http;
 
@@ -30,7 +31,7 @@ const server = new ApolloServer({
     if (code) set(err, 'extensions.code', STATUS_CODES[code].replace(/\s/g, '_').toUpperCase());
     return err;
   },
-  context: ({ req }) => ({ req, repo }),
+  context: ({ req }) => ({ req, repo, client }),
 });
 server.applyMiddleware({ app, path });
 

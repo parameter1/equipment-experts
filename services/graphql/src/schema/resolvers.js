@@ -18,11 +18,29 @@ module.exports = merge({
       return repo.findByObjectId({ id, options: { strict: true } });
     },
     /**
-     *
+     * Returns all SearchIndexes for a content id
      */
     async find(_, { contentId }, { repo }) {
       const cursor = await repo.find({ contentId });
       return cursor.toArray();
+    },
+    /**
+     * Returns third-party data matching the search query (if present)
+     */
+    findIndustries(_, { query }, { client }) {
+      return client.find({ type: 'industries', query });
+    },
+    /**
+     * Returns third-party data matching the search query (if present)
+     */
+    findManufacturers(_, { query }, { client }) {
+      return client.find({ type: 'manufacturers', query });
+    },
+    /**
+     * Returns third-party data matching the search query (if present)
+     */
+    findModels(_, { query }, { client }) {
+      return client.find({ type: 'models', query });
     },
   },
   /**

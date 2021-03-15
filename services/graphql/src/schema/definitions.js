@@ -13,6 +13,15 @@ type Query {
 
   "Retrieves indexes for a content id."
   find(contentId: Int!): [SearchIndex!]!
+
+  "Retrieves items from the EE Industries API"
+  findIndustries(query: String): SearchResults!
+
+  "Retrieves items from the EE Manufacturers API"
+  findManufacturers(query: String): SearchResults!
+
+  "Retrieves items from the EE Models API"
+  findModels(query: String): SearchResults!
 }
 
 type Mutation {
@@ -35,6 +44,11 @@ type SearchIndex {
   industry: String!
   manufacturer: String!
   model: String
+}
+
+type SearchResults {
+  total: Int!
+  results: [String!]!
 }
 
 input SearchIndexQueryInput {
