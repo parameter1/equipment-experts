@@ -1,0 +1,58 @@
+<template>
+  <tag
+    :is="tag"
+    v-if="name"
+    :class="classNames"
+  >
+    <slot />
+  </tag>
+</template>
+
+<script>
+const createClasses = ({
+  iconName,
+  blockName = 'icon',
+  modifiers,
+  className,
+} = {}) => {
+  const mods = Array.isArray(modifiers) ? modifiers.slice() : [];
+  mods.push(iconName.toLowerCase());
+  return [blockName, ...mods.map(mod => `${blockName}--${mod}`), className];
+};
+
+export default {
+  props: {
+    name: {
+      type: String,
+      required: true,
+      default: '',
+    },
+    blockName: {
+      type: String,
+      default: 'icon',
+    },
+    className: {
+      type: String,
+      default: null,
+    },
+    modifiers: {
+      type: Array,
+      default: () => ([]),
+    },
+    tag: {
+      type: String,
+      default: 'span',
+    },
+  },
+  computed: {
+    classNames() {
+      return createClasses({
+        iconName: this.name,
+        blockName: this.blockName,
+        modifiers: this.modifiers,
+        className: this.className,
+      });
+    },
+  },
+};
+</script>

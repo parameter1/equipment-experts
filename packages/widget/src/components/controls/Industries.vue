@@ -3,12 +3,14 @@
     v-model="selected"
     :multiple="false"
     :options="options"
-  />
+  >
+    <div slot="value-label" slot-scope="{ node }">{{ node.id }}</div>
+  </tree-select>
 </template>
 
 <script>
 import TreeSelect from '@riophae/vue-treeselect';
-import Industries from '../graphql/Industries.gql';
+import Industries from '../../graphql/Industries.gql';
 
 export default {
   apollo: {
@@ -17,16 +19,21 @@ export default {
   components: {
     TreeSelect,
   },
+  props: {
+    selected: {
+      type: String,
+      required: false,
+    },
+  },
   data () {
     return {
       findIndustries: null,
-      selected: null,
       error: null,
     };
   },
   computed: {
     options() {
-      const results = this.findIndustries.results || [];
+      const results = this.findIndustries ? this.findIndustries.results : [];
       return results.map(v => ({ id: v, label: v }));
     },
   },
@@ -34,8 +41,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-/* @todo fix this */
-@import '../../../../node_modules/@riophae/vue-treeselect/dist/vue-treeselect.css';
-</style>
