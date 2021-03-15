@@ -29,6 +29,7 @@ import IconDelete from './icons/Delete.vue';
 import IconSave from './icons/Save.vue';
 
 import CreateSearchIndex from '../graphql/mutations/CreateSearchIndex.gql';
+import DeleteSearchIndex from '../graphql/mutations/DeleteSearchIndex.gql';
 
 export default {
   components: {
@@ -104,10 +105,15 @@ export default {
         setTimeout(() => { this.loading = false; }, 3000);
       }
     },
-    remove() {
-      console.log('removing!');
+    async remove() {
       this.loading = true;
-      setTimeout(() => { this.loading = false; }, 3000);
+      // @todo this needs to remove the current item; do at higher level?
+      const { data } = await this.$apollo.mutate({
+        mutation: DeleteSearchIndex,
+        variables: { id: this.id }
+      });
+      console.log(data);
+      this.loading = false;
     }
   },
 };

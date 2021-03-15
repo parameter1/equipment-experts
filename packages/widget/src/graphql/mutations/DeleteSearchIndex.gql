@@ -1,0 +1,3 @@
+mutation DeleteSearchIndex($id: ObjectID!) {
+  delete(id: $id)
+}
