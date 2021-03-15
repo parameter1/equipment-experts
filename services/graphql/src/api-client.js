@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const { getAsArray } = require('@parameter1/utils');
 const { API_URI, API_TOKEN } = require('./env');
 const { name, version } = require('../package.json');
 
@@ -32,12 +33,8 @@ module.exports = {
   async findIndustries({ page = 1 } = {}) {
     try {
       const json = await find({ type: 'industries', page });
-      console.log({ industries: json });
-      // format industries
-      return {
-        total: 0,
-        results: [],
-      };
+      const results = getAsArray(json, 'data').map((r) => r.Industry);
+      return { results, total: results.length };
     } catch (e) {
       return error(e);
     }
@@ -45,12 +42,8 @@ module.exports = {
   async findManufacturers({ page = 1, query = '' } = {}) {
     try {
       const json = await find({ type: 'manufacturers', query, page });
-      console.log({ manufacturers: json });
-      // format manufacturers
-      return {
-        total: 0,
-        results: [],
-      };
+      const results = getAsArray(json, 'data').map((r) => r.displayName);
+      return { results, total: results.length };
     } catch (e) {
       return error(e);
     }
@@ -58,12 +51,8 @@ module.exports = {
   async findModels({ page = 1, query = '' } = {}) {
     try {
       const json = await find({ type: 'models', query, page });
-      console.log({ models: json });
-      // format models
-      return {
-        total: 0,
-        results: [],
-      };
+      const results = getAsArray(json, 'data').map((r) => r.displayName);
+      return { results, total: results.length };
     } catch (e) {
       return error(e);
     }
