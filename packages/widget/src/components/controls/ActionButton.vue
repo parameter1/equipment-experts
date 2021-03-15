@@ -1,17 +1,27 @@
 <template>
   <button :title="title">
-    <slot />
+    <IconRefresh v-if="isLoading" />
+    <slot v-else />
   </button>
 </template>
 
 <script>
+import IconRefresh from '../icons/Refresh.vue';
+
 export default {
+  components: {
+    IconRefresh,
+  },
   props: {
     title: {
       type: String,
-    }
-  }
-}
+    },
+    isLoading: {
+      type: Boolean,
+      default: () => false,
+    },
+  },
+};
 </script>
 
 <style scoped>

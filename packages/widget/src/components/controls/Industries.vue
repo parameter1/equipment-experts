@@ -1,8 +1,9 @@
 <template>
   <tree-select
-    v-model="selected"
+    :value="value"
     :multiple="false"
     :options="options"
+    @input="update"
   >
     <div slot="value-label" slot-scope="{ node }">{{ node.id }}</div>
   </tree-select>
@@ -20,7 +21,7 @@ export default {
     TreeSelect,
   },
   props: {
-    selected: {
+    value: {
       type: String,
       required: false,
     },
@@ -38,6 +39,9 @@ export default {
     },
   },
   methods: {
+    update(value) {
+      this.$emit('update', value);
+    }
   }
 }
 </script>

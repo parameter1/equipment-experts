@@ -17,7 +17,7 @@
           <th>Industry</th>
           <th>Manufacturer</th>
           <th>Model</th>
-          <th>x</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

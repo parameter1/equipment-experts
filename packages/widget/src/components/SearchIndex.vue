@@ -1,19 +1,19 @@
 <template>
   <tr class="search-index">
     <td>
-      <Industries :selected="industry" />
+      <Industries :value="industry" @update="updateIndustry" />
     </td>
     <td>
-      <Manufacturers :selected="manufacturer" />
+      <Manufacturers :value="manufacturer" @update="updateManufacturer" />
     </td>
     <td>
-      <Models :selected="model" />
+      <Models :value="model" @update="updateModel"  />
     </td>
     <td>
-      <ActionButton v-if="isNew" v-on:click="save">
+      <ActionButton v-if="isNew" v-on:click.native="save" :is-loading="loading">
         <IconSave />
       </ActionButton>
-      <ActionButton v-else v-on:click="remove">
+      <ActionButton v-else v-on:click.native="remove" :is-loading="loading">
         <IconDelete />
       </ActionButton>
     </td>
@@ -37,11 +37,17 @@ export default {
     IconDelete,
     IconSave,
   },
+  props: {
+    id: {
+      type: [String, Number],
+      required: true,
+    },
+    industry: String,
+    manufacturer: String,
+    model: String,
+  },
   data: () => ({
-    id: 0,
-    industry: '',
-    manufacturer: '',
-    model: '',
+    loading: false,
   }),
   computed: {
     isNew() {
@@ -49,11 +55,46 @@ export default {
     },
   },
   methods: {
-    save() {
-      console.log('saving!');
+    updateIndustry(values) {
+      this.save({
+        industry: values,
+        manufacturer: this.manufacturer,
+        model: this.model,
+      });
+    },
+    updateManufacturer(values) {
+      this.save({
+        industry: this.industry,
+        manufacturer: values,
+        model: this.model,
+      });
+    },
+    updateModel(values) {
+      this.save({
+        industry: this.industry,
+        manufacturer: this.manufacturer,
+        model: values,
+      });
+    },
+    save(doc) {
+      if (this.isNew) {
+        Object.keys(doc).forEach((k) => {
+          this[k] = doc[k];
+        });
+        if (this.industry && this.manufacturer) {
+          // Create new record to replace this one!
+        }
+      } else {
+        // const mutation = UpdateSearchIndex;
+        console.log('saving!', doc);
+        this.loading = true;
+        setTimeout(() => { this.loading = false; }, 3000);
+      }
     },
     remove() {
       console.log('removing!');
+      this.loading = true;
+      setTimeout(() => { this.loading = false; }, 3000);
     }
   },
 };
