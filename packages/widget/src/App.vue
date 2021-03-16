@@ -1,15 +1,9 @@
 <template>
   <div id="app">
-    <label class="control-label">
+    <h1 class="control-label">
       Equipment Experts Search Indexes
-    </label>
-    <p class="help-block">
-      Each row will be used to associate this article using Elastic Search. Please use one row per index.<br>
-      i.e. The article is about Wheel-loaders and showcases John Deere and Caterpillar<br>
-      <pre>Industry: Agriculture,  Manufacturer: DEERE, Model: 440R
-  Industry: Construction, Manufacturer: DEERE, Model: 440R
-  Industry: Construction, Manufacturer: CAT,   Model: 903D</pre>
-    </p>
+    </h1>
+    <hr>
 
     <table class="table search-indexes">
       <thead>
