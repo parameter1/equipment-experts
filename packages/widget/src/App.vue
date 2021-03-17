@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <SearchIndex
-          v-for="index in indexes"
+          v-for="index in find"
           :key="index.id"
           :id="index.id"
           :content-id="contentId"
@@ -24,26 +24,21 @@
           :manufacturer="index.manufacturer"
           :model="index.model"
         />
+        <CreateIndex
+          :content-id="contentId"
+          :id="created"
+          @create="create"
+        />
       </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="3" />
-          <td>
-            <ActionButton v-on:click.native="addIndex" title="Add an index">
-              <IconAdd />
-            </ActionButton>
-          </td>
-        </tr>
-      </tfoot>
     </table>
   </div>
 </template>
 
 <script>
 import SearchIndex from './components/SearchIndex.vue'
-import IconAdd from './components/icons/Add.vue';
-import ActionButton from './components/ActionButton.vue';
+import CreateIndex from './components/CreateIndex.vue'
 import FindAll from './graphql/queries/FindAll.gql';
+import CreateSearchIndex from './graphql/mutations/CreateSearchIndex.gql';
 
 export default {
   name: 'App',
@@ -59,26 +54,33 @@ export default {
   },
   components: {
     SearchIndex,
-    ActionButton,
-    IconAdd,
+    CreateIndex,
   },
   data() {
     return {
       contentId: 15064118,
-      queue: [],
+      isCreating: false,
+      created: 0,
     };
   },
-  computed: {
-    indexes() {
-      return [
-        ...(this.find ? [...this.find] : []),
-        ...(this.queue ? [...this.queue] : []),
-      ];
-    },
-  },
   methods: {
-    addIndex() {
-      this.queue.push({ id: this.indexes.length + 1 });
+    async create($event) {
+      console.log('create', $event);
+      try {
+        const input = { ...$event, contentId: this.contentId };
+        const { data } = await this.$apollo.mutate({
+          mutation: CreateSearchIndex,
+          variables: { input }
+        });
+        console.log(data);
+        this.created += 1;
+        this.isCreating = false;
+      } catch (e) {
+        console.log(e);
+      } finally {
+        console.log('done!');
+        // Refresh queries?
+      }
     },
   },
 };
@@ -105,8 +107,5 @@ export default {
 }
 .search-indexes th {
   width: 30%
-}
-tfoot td:last-child {
-  text-align: center;
 }
 </style>
