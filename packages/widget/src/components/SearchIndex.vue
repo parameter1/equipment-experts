@@ -29,8 +29,6 @@ import Models from './controls/Models.vue'
 
 import Toolbar from './ToolbarUpdate.vue';
 
-import DeleteSearchIndex from '../graphql/mutations/DeleteSearchIndex.gql';
-
 export default {
   components: {
     Industries,
@@ -65,29 +63,20 @@ export default {
   },
   methods: {
     save() {
-      this.$emit('hide-message');
-      this.isLoading = true;
       this.$emit('update', {
         id: this.id,
         industry: this.$data._industry,
         manufacturer: this.$data._manufacturer,
         model: this.$data._model,
       });
-      this.toggle();
+      this.isEditing = false;
     },
     async toggle() {
       this.isEditing = !this.isEditing;
-      this.loading = false;
     },
     async remove() {
-      this.isLoading = true;
-      // @todo this needs to remove the current item; do at higher level?
-      const { data } = await this.$apollo.mutate({
-        mutation: DeleteSearchIndex,
-        variables: { id: this.id }
-      });
-      console.log(data);
-      this.isLoading = false;
+      this.$emit('remove', { id: this.id });
+      this.isEditing = false;
     }
   },
 };

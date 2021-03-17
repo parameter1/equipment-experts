@@ -6,7 +6,7 @@
     <ActionButton v-on:click.native="$emit('update')" :is-loading="isLoading">
       <IconSave />
     </ActionButton>
-    <ActionButton v-on:click.native="$emit('delete')" :is-loading="isLoading">
+    <ActionButton v-on:click.native="$emit('remove')" :is-loading="isLoading">
       <IconDelete />
     </ActionButton>
   </td>

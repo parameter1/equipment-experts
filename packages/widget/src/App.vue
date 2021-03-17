@@ -24,6 +24,7 @@
           :manufacturer="index.manufacturer"
           :model="index.model"
           @update="update"
+          @remove="remove"
           @hide-message="hideMessage"
           @show-message="showMessage"
         />
@@ -52,6 +53,7 @@ import CreateIndex from './components/CreateIndex.vue'
 import FindAll from './graphql/queries/FindAll.gql';
 import CreateSearchIndex from './graphql/mutations/CreateSearchIndex.gql';
 import UpdateSearchIndex from './graphql/mutations/UpdateSearchIndex.gql';
+import DeleteSearchIndex from './graphql/mutations/DeleteSearchIndex.gql';
 
 export default {
   name: 'App',
@@ -106,10 +108,21 @@ export default {
         await this.$apollo.queries.find.refetch();
       } catch (e) {
         this.message = e;
+      }
+    },
+    async remove($event) {
+      try {
+        this.message = null;
+        this.loading = false;
+        const id = $event.id;
+        await this.$apollo.mutate({ mutation: DeleteSearchIndex, variables: { id } });
+        await this.$apollo.queries.find.refetch();
+      } catch (e) {
+        this.message = e;
       } finally {
         this.loading = false;
       }
-    }
+    },
   },
 };
 </script>
