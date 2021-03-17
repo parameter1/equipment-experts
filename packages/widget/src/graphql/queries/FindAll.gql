@@ -1,4 +1,3 @@
-# Write your query or mutation here
 query FindAll($contentId: Int!) {
   find(contentId: $contentId) {
     id
