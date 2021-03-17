@@ -29,7 +29,6 @@ import Models from './controls/Models.vue'
 
 import Toolbar from './ToolbarUpdate.vue';
 
-import CreateSearchIndex from '../graphql/mutations/CreateSearchIndex.gql';
 import DeleteSearchIndex from '../graphql/mutations/DeleteSearchIndex.gql';
 import UpdateSearchIndex from '../graphql/mutations/UpdateSearchIndex.gql';
 
@@ -61,9 +60,6 @@ export default {
     _model: instance.model,
   }),
   computed: {
-    isNew() {
-      return Number.isInteger(this.id);
-    },
     isModified() {
       return ['industry', 'manufacturer', 'model'].some((v) => this[v] !== this[`_${v}`]);
     },
@@ -75,32 +71,16 @@ export default {
         manufacturer: this.$data._manufacturer,
         model: this.$data._model,
       }
-      if (this.isNew) {
-        // Force set the value so save can work. @todo: pass value up further & call save
-        Object.keys(doc).forEach((k) => { this[k] = doc[k]; });
-        if (this.industry && this.manufacturer) {
-          this.isLoading = true;
-          // @todo this needs to replace the current item; do at higher level
-          const input = { ...doc, contentId: this.contentId };
-          const { data } = await this.$apollo.mutate({
-            mutation: CreateSearchIndex,
-            variables: { input }
-          });
-          console.log(data);
-          this.isLoading = false;
-        }
-      } else {
-        this.isLoading = true;
-        const update = { ...doc, id: this.id, contentId: this.contentId };
-        const { data } = await this.$apollo.mutate({
-          mutation: UpdateSearchIndex,
-          variables: { update }
-        });
-        console.log(data);
-        this.isLoading = false;
-        this.isEditing = false;
-        // Tell the component it's updated? This should probably be higher too.
-      }
+      this.isLoading = true;
+      const update = { ...doc, id: this.id, contentId: this.contentId };
+      const { data } = await this.$apollo.mutate({
+        mutation: UpdateSearchIndex,
+        variables: { update }
+      });
+      console.log(data);
+      this.isLoading = false;
+      this.isEditing = false;
+      // Tell the component it's updated? This should probably be higher too.
     },
     async toggle() {
       this.isEditing = !this.isEditing;

@@ -1,19 +1,26 @@
 <template>
-  <tr class="search-index">
-    <td>
-      <Industries v-if="isEditing" :value="$data._industry" @update="$data._industry = $event" />
-      <span v-else>{{ industry }}</span>
-    </td>
-    <td>
-      <Manufacturers v-if="isEditing" :value="$data._manufacturer" @update="$data._manufacturer = $event"  />
-      <span v-else>{{ manufacturer }}</span>
-    </td>
-    <td>
-      <Models v-if="isEditing" :value="$data._model" @update="$data._model = $event"  />
-      <span v-else>{{ model }}</span>
-    </td>
-    <Toolbar :is-editing="isEditing" @create="create" @reset="reset" @toggle="toggle" />
-  </tr>
+  <tbody>
+    <tr class="search-index">
+      <td>
+        <Industries v-if="isEditing" :value="$data._industry" @update="$data._industry = $event" />
+        <span v-else>{{ industry }}</span>
+      </td>
+      <td>
+        <Manufacturers v-if="isEditing" :value="$data._manufacturer" @update="$data._manufacturer = $event"  />
+        <span v-else>{{ manufacturer }}</span>
+      </td>
+      <td>
+        <Models v-if="isEditing" :value="$data._model" @update="$data._model = $event"  />
+        <span v-else>{{ model }}</span>
+      </td>
+      <Toolbar :is-editing="isEditing" @create="create" @reset="reset" @toggle="toggle" />
+    </tr>
+    <tr class="search-message" v-if="message">
+      <td colspan=4>
+        {{ message }}
+      </td>
+    </tr>
+  </tbody>
 </template>
 
 <script>
@@ -49,6 +56,7 @@ export default {
     _industry: instance.industry,
     _manufacturer: instance.manufacturer,
     _model: instance.model,
+    message: null,
   }),
   computed: {
     isNew() {
@@ -61,19 +69,20 @@ export default {
   methods: {
     async create() {
       this.message = null;
-      if (this.$data._industry && this.$data.manufacturer) {
+      if (this.$data._industry && this.$data._manufacturer) {
         this.isLoading = true;
         this.$emit('create', {
           industry: this.$data._industry,
           manufacturer: this.$data._manufacturer,
           model: this.$data._model,
         });
-        this.isLoading = false;
+        this.toggle();
       } else {
         this.message = 'Industry and Manufacturer must be specified!';
       }
     },
     async reset() {
+      this.message = null;
       this.isLoading = false;
       this.$data._industry = this.$props._industry;
       this.$data._manufacturer = this.$props._manufacturer;
@@ -87,3 +96,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.search-message {
+  color: rgb(136, 0, 0);
+  text-align: center;
+  font-size: small;
+}
+</style>

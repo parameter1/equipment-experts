@@ -24,12 +24,12 @@
           :manufacturer="index.manufacturer"
           :model="index.model"
         />
-        <CreateIndex
-          :content-id="contentId"
-          :id="created"
-          @create="create"
-        />
       </tbody>
+      <CreateIndex
+        :content-id="contentId"
+        :id="created"
+        @create="create"
+      />
     </table>
   </div>
 </template>
