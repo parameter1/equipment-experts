@@ -61,25 +61,27 @@ export default {
       contentId: 15064118,
       isCreating: false,
       created: 0,
+      message: null,
     };
   },
   methods: {
+    hideMessage() {
+      this.message = null;
+    },
+    showMessage(msg) {
+      this.message = msg;
+    },
     async create($event) {
-      console.log('create', $event);
       try {
+        this.message = null;
+        this.loading = true;
         const input = { ...$event, contentId: this.contentId };
-        const { data } = await this.$apollo.mutate({
-          mutation: CreateSearchIndex,
-          variables: { input }
-        });
-        console.log(data);
-        this.created += 1;
-        this.isCreating = false;
+        await this.$apollo.mutate({ mutation: CreateSearchIndex, variables: { input } });
+        await this.$apollo.queries.find.refetch();
       } catch (e) {
-        console.log(e);
+        this.message = e;
       } finally {
-        console.log('done!');
-        // Refresh queries?
+        this.loading = false;
       }
     },
   },
@@ -107,5 +109,10 @@ export default {
 }
 .search-indexes th {
   width: 30%
+}
+.search-feedback {
+  color: rgb(136, 0, 0);
+  text-align: center;
+  font-size: small;
 }
 </style>

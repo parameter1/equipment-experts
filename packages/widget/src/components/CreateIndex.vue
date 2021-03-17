@@ -1,26 +1,19 @@
 <template>
-  <tbody>
-    <tr class="search-index">
-      <td>
-        <Industries v-if="isEditing" :value="$data._industry" @update="$data._industry = $event" />
-        <span v-else>{{ industry }}</span>
-      </td>
-      <td>
-        <Manufacturers v-if="isEditing" :value="$data._manufacturer" @update="$data._manufacturer = $event"  />
-        <span v-else>{{ manufacturer }}</span>
-      </td>
-      <td>
-        <Models v-if="isEditing" :value="$data._model" @update="$data._model = $event"  />
-        <span v-else>{{ model }}</span>
-      </td>
-      <Toolbar :is-editing="isEditing" @create="create" @reset="reset" @toggle="toggle" />
-    </tr>
-    <tr class="search-message" v-if="message">
-      <td colspan=4>
-        {{ message }}
-      </td>
-    </tr>
-  </tbody>
+  <tr class="search-index">
+    <td>
+      <Industries v-if="isEditing" :value="$data._industry" @update="$data._industry = $event" />
+      <span v-else>{{ industry }}</span>
+    </td>
+    <td>
+      <Manufacturers v-if="isEditing" :value="$data._manufacturer" @update="$data._manufacturer = $event"  />
+      <span v-else>{{ manufacturer }}</span>
+    </td>
+    <td>
+      <Models v-if="isEditing" :value="$data._model" @update="$data._model = $event"  />
+      <span v-else>{{ model }}</span>
+    </td>
+    <Toolbar :is-editing="isEditing" :is-loading="isLoading" @create="create" @toggle="toggle" />
+  </tr>
 </template>
 
 <script>
@@ -56,19 +49,10 @@ export default {
     _industry: instance.industry,
     _manufacturer: instance.manufacturer,
     _model: instance.model,
-    message: null,
   }),
-  computed: {
-    isNew() {
-      return Number.isInteger(this.id);
-    },
-    isModified() {
-      return ['industry', 'manufacturer', 'model'].some((v) => this[v] !== this[`_${v}`]);
-    },
-  },
   methods: {
-    async create() {
-      this.message = null;
+    create() {
+      this.$emit('hide-message');
       if (this.$data._industry && this.$data._manufacturer) {
         this.isLoading = true;
         this.$emit('create', {
@@ -78,29 +62,20 @@ export default {
         });
         this.toggle();
       } else {
-        this.message = 'Industry and Manufacturer must be specified!';
+        this.$emit('show-message', 'Industry and Manufacturer must be specified!', 'text-danger');
       }
     },
-    async reset() {
-      this.message = null;
-      this.isLoading = false;
-      this.$data._industry = this.$props._industry;
-      this.$data._manufacturer = this.$props._manufacturer;
-      this.$data._model = this.$props._model;
-      this.error = null;
-    },
-    async toggle() {
-      if (this.isEditing) this.reset();
+    toggle() {
+      if (this.isEditing) {
+        this.$emit('hide-message');
+        this.isLoading = false;
+        this.$data._industry = this.$props._industry;
+        this.$data._manufacturer = this.$props._manufacturer;
+        this.$data._model = this.$props._model;
+        this.error = null;
+      }
       this.isEditing = !this.isEditing;
     },
   },
 };
 </script>
-
-<style scoped>
-.search-message {
-  color: rgb(136, 0, 0);
-  text-align: center;
-  font-size: small;
-}
-</style>
