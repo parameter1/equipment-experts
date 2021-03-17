@@ -23,13 +23,25 @@
           :industry="index.industry"
           :manufacturer="index.manufacturer"
           :model="index.model"
+          @update="update"
+          @hide-message="hideMessage"
+          @show-message="showMessage"
         />
       </tbody>
       <CreateIndex
         :content-id="contentId"
         :id="created"
         @create="create"
+        @hide-message="hideMessage"
+        @show-message="showMessage"
       />
+      <tfoot v-if="message" class="search-feedback">
+        <tr>
+          <td colspan="4">
+            {{ message }}
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </template>
@@ -39,6 +51,7 @@ import SearchIndex from './components/SearchIndex.vue'
 import CreateIndex from './components/CreateIndex.vue'
 import FindAll from './graphql/queries/FindAll.gql';
 import CreateSearchIndex from './graphql/mutations/CreateSearchIndex.gql';
+import UpdateSearchIndex from './graphql/mutations/UpdateSearchIndex.gql';
 
 export default {
   name: 'App',
@@ -84,6 +97,19 @@ export default {
         this.loading = false;
       }
     },
+    async update($event) {
+      try {
+        this.message = null;
+        this.loading = true;
+        const update = { ...$event, contentId: this.contentId };
+        await this.$apollo.mutate({ mutation: UpdateSearchIndex, variables: { update } });
+        await this.$apollo.queries.find.refetch();
+      } catch (e) {
+        this.message = e;
+      } finally {
+        this.loading = false;
+      }
+    }
   },
 };
 </script>

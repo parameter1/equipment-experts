@@ -30,7 +30,6 @@ import Models from './controls/Models.vue'
 import Toolbar from './ToolbarUpdate.vue';
 
 import DeleteSearchIndex from '../graphql/mutations/DeleteSearchIndex.gql';
-import UpdateSearchIndex from '../graphql/mutations/UpdateSearchIndex.gql';
 
 export default {
   components: {
@@ -65,25 +64,20 @@ export default {
     },
   },
   methods: {
-    async save() {
-      const doc = {
+    save() {
+      this.$emit('hide-message');
+      this.isLoading = true;
+      this.$emit('update', {
+        id: this.id,
         industry: this.$data._industry,
         manufacturer: this.$data._manufacturer,
         model: this.$data._model,
-      }
-      this.isLoading = true;
-      const update = { ...doc, id: this.id, contentId: this.contentId };
-      const { data } = await this.$apollo.mutate({
-        mutation: UpdateSearchIndex,
-        variables: { update }
       });
-      console.log(data);
-      this.isLoading = false;
-      this.isEditing = false;
-      // Tell the component it's updated? This should probably be higher too.
+      this.toggle();
     },
     async toggle() {
       this.isEditing = !this.isEditing;
+      this.loading = false;
     },
     async remove() {
       this.isLoading = true;
