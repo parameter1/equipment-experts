@@ -1,20 +1,31 @@
 <template>
   <tr class="search-index">
     <td>
-      <Industries :value="industry" @update="updateIndustry" />
+      <Industries v-if="isEditing" :value="industry" @update="updateIndustry" />
+      <span v-else>{{ industry }}</span>
     </td>
     <td>
-      <Manufacturers :value="manufacturer" @update="updateManufacturer" />
+      <Manufacturers v-if="isEditing" :value="manufacturer" @update="updateManufacturer" />
+      <span v-else>{{ manufacturer }}</span>
     </td>
     <td>
-      <Models :value="model" @update="updateModel"  />
+      <Models v-if="isEditing" :value="model" @update="updateModel"  />
+      <span v-else>{{ model }}</span>
     </td>
-    <td>
-      <ActionButton v-if="isNew" v-on:click.native="save" :is-loading="loading">
+    <td v-if="isEditing">
+      <ActionButton v-on:click.native="isEditing = false">
+        <IconCancel />
+      </ActionButton>
+      <ActionButton v-on:click.native="save" :is-loading="isLoading">
         <IconSave />
       </ActionButton>
-      <ActionButton v-else v-on:click.native="remove" :is-loading="loading">
+      <ActionButton v-on:click.native="remove" :is-loading="isLoading">
         <IconDelete />
+      </ActionButton>
+    </td>
+    <td v-else>
+      <ActionButton v-on:click.native="isEditing = true">
+        <IconEdit />
       </ActionButton>
     </td>
   </tr>
@@ -24,9 +35,12 @@
 import Industries from './controls/Industries.vue'
 import Manufacturers from './controls/Manufacturers.vue'
 import Models from './controls/Models.vue'
+
 import ActionButton from './ActionButton.vue';
 import IconDelete from './icons/Delete.vue';
 import IconSave from './icons/Save.vue';
+import IconEdit from './icons/Edit.vue';
+import IconCancel from './icons/Cancel.vue';
 
 import CreateSearchIndex from '../graphql/mutations/CreateSearchIndex.gql';
 import DeleteSearchIndex from '../graphql/mutations/DeleteSearchIndex.gql';
@@ -40,6 +54,8 @@ export default {
     ActionButton,
     IconDelete,
     IconSave,
+    IconEdit,
+    IconCancel,
   },
   props: {
     id: {
@@ -55,7 +71,8 @@ export default {
     model: String,
   },
   data: () => ({
-    loading: false,
+    isLoading: false,
+    isEditing: false,
   }),
   computed: {
     isNew() {
@@ -89,7 +106,7 @@ export default {
         // Force set the value so save can work. @todo: pass value up further & call save
         Object.keys(doc).forEach((k) => { this[k] = doc[k]; });
         if (this.industry && this.manufacturer) {
-          this.loading = true;
+          this.isLoading = true;
           // @todo this needs to replace the current item; do at higher level
           const input = { ...doc, contentId: this.contentId };
           const { data } = await this.$apollo.mutate({
@@ -97,29 +114,29 @@ export default {
             variables: { input }
           });
           console.log(data);
-          this.loading = false;
+          this.isLoading = false;
         }
       } else {
-        this.loading = true;
+        this.isLoading = true;
         const update = { ...doc, id: this.id, contentId: this.contentId };
         const { data } = await this.$apollo.mutate({
           mutation: UpdateSearchIndex,
           variables: { update }
         });
         console.log(data);
-        this.loading = false;
+        this.isLoading = false;
         // Tell the component it's updated? This should probably be higher too.
       }
     },
     async remove() {
-      this.loading = true;
+      this.isLoading = true;
       // @todo this needs to remove the current item; do at higher level?
       const { data } = await this.$apollo.mutate({
         mutation: DeleteSearchIndex,
         variables: { id: this.id }
       });
       console.log(data);
-      this.loading = false;
+      this.isLoading = false;
     }
   },
 };
@@ -128,5 +145,8 @@ export default {
 <style scoped>
 .search-index td {
   max-width: 30%
+}
+.search-index td:last-child {
+  min-width: calc(3 * 40px);
 }
 </style>
