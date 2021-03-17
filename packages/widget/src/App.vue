@@ -79,6 +79,11 @@ export default {
       message: null,
     };
   },
+  computed: {
+    isLoading() {
+      return this.$apollo.loading;
+    },
+  },
   methods: {
     hideMessage() {
       this.message = null;
@@ -89,20 +94,16 @@ export default {
     async create($event) {
       try {
         this.message = null;
-        this.loading = true;
         const input = { ...$event, contentId: this.contentId };
         await this.$apollo.mutate({ mutation: CreateSearchIndex, variables: { input } });
         await this.$apollo.queries.find.refetch();
       } catch (e) {
         this.message = e;
-      } finally {
-        this.loading = false;
       }
     },
     async update($event) {
       try {
         this.message = null;
-        this.loading = true;
         const update = { ...$event, contentId: this.contentId };
         await this.$apollo.mutate({ mutation: UpdateSearchIndex, variables: { update } });
         await this.$apollo.queries.find.refetch();
@@ -113,14 +114,11 @@ export default {
     async remove($event) {
       try {
         this.message = null;
-        this.loading = false;
         const { id } = $event;
         await this.$apollo.mutate({ mutation: DeleteSearchIndex, variables: { id } });
         await this.$apollo.queries.find.refetch();
       } catch (e) {
         this.message = e;
-      } finally {
-        this.loading = false;
       }
     },
   },
