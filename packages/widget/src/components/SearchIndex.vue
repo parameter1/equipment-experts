@@ -12,22 +12,13 @@
       <Models v-if="isEditing" :value="$data._model" @update="$data._model = $event"  />
       <span v-else>{{ model }}</span>
     </td>
-    <td v-if="isEditing">
-      <ActionButton v-on:click.native="save" :is-loading="isLoading">
-        <IconSave />
-      </ActionButton>
-      <ActionButton v-on:click.native="isEditing = false">
-        <IconCancel />
-      </ActionButton>
-      <ActionButton v-on:click.native="remove" :is-loading="isLoading">
-        <IconDelete />
-      </ActionButton>
-    </td>
-    <td v-else>
-      <ActionButton v-on:click.native="isEditing = true">
-        <IconEdit />
-      </ActionButton>
-    </td>
+    <Toolbar
+      :is-editing="isEditing"
+      :is-loading="isLoading"
+      @toggle="toggle"
+      @update="save"
+      @remove="remove"
+    />
   </tr>
 </template>
 
@@ -36,11 +27,7 @@ import Industries from './controls/Industries.vue'
 import Manufacturers from './controls/Manufacturers.vue'
 import Models from './controls/Models.vue'
 
-import ActionButton from './ActionButton.vue';
-import IconDelete from './icons/Delete.vue';
-import IconSave from './icons/Save.vue';
-import IconEdit from './icons/Edit.vue';
-import IconCancel from './icons/Cancel.vue';
+import Toolbar from './ToolbarUpdate.vue';
 
 import CreateSearchIndex from '../graphql/mutations/CreateSearchIndex.gql';
 import DeleteSearchIndex from '../graphql/mutations/DeleteSearchIndex.gql';
@@ -51,11 +38,7 @@ export default {
     Industries,
     Manufacturers,
     Models,
-    ActionButton,
-    IconDelete,
-    IconSave,
-    IconEdit,
-    IconCancel,
+    Toolbar,
   },
   props: {
     id: {
@@ -119,6 +102,9 @@ export default {
         // Tell the component it's updated? This should probably be higher too.
       }
     },
+    async toggle() {
+      this.isEditing = !this.isEditing;
+    },
     async remove() {
       this.isLoading = true;
       // @todo this needs to remove the current item; do at higher level?
@@ -136,9 +122,5 @@ export default {
 <style scoped>
 .search-index td {
   max-width: 30%
-}
-.search-index td:last-child {
-  min-width: calc(3 * 40px);
-  text-align: center;
 }
 </style>
