@@ -1,23 +1,23 @@
 <template>
   <tr class="search-index">
     <td>
-      <Industries v-if="isEditing" :value="industry" @update="updateIndustry" />
+      <Industries v-if="isEditing" :value="$data._industry" @update="$data._industry = $event" />
       <span v-else>{{ industry }}</span>
     </td>
     <td>
-      <Manufacturers v-if="isEditing" :value="manufacturer" @update="updateManufacturer" />
+      <Manufacturers v-if="isEditing" :value="$data._manufacturer" @update="$data._manufacturer = $event"  />
       <span v-else>{{ manufacturer }}</span>
     </td>
     <td>
-      <Models v-if="isEditing" :value="model" @update="updateModel"  />
+      <Models v-if="isEditing" :value="$data._model" @update="$data._model = $event"  />
       <span v-else>{{ model }}</span>
     </td>
     <td v-if="isEditing">
-      <ActionButton v-on:click.native="isEditing = false">
-        <IconCancel />
-      </ActionButton>
       <ActionButton v-on:click.native="save" :is-loading="isLoading">
         <IconSave />
+      </ActionButton>
+      <ActionButton v-on:click.native="isEditing = false">
+        <IconCancel />
       </ActionButton>
       <ActionButton v-on:click.native="remove" :is-loading="isLoading">
         <IconDelete />
@@ -70,38 +70,28 @@ export default {
     manufacturer: String,
     model: String,
   },
-  data: () => ({
+  data: (instance) => ({
     isLoading: false,
     isEditing: false,
+    _industry: instance.industry,
+    _manufacturer: instance.manufacturer,
+    _model: instance.model,
   }),
   computed: {
     isNew() {
       return Number.isInteger(this.id);
     },
+    isModified() {
+      return ['industry', 'manufacturer', 'model'].some((v) => this[v] !== this[`_${v}`]);
+    },
   },
   methods: {
-    updateIndustry(values) {
-      this.save({
-        industry: values,
-        manufacturer: this.manufacturer,
-        model: this.model,
-      });
-    },
-    updateManufacturer(values) {
-      this.save({
-        industry: this.industry,
-        manufacturer: values,
-        model: this.model,
-      });
-    },
-    updateModel(values) {
-      this.save({
-        industry: this.industry,
-        manufacturer: this.manufacturer,
-        model: values ? values : null,
-      });
-    },
-    async save(doc) {
+    async save() {
+      const doc = {
+        industry: this.$data._industry,
+        manufacturer: this.$data._manufacturer,
+        model: this.$data._model,
+      }
       if (this.isNew) {
         // Force set the value so save can work. @todo: pass value up further & call save
         Object.keys(doc).forEach((k) => { this[k] = doc[k]; });
@@ -125,6 +115,7 @@ export default {
         });
         console.log(data);
         this.isLoading = false;
+        this.isEditing = false;
         // Tell the component it's updated? This should probably be higher too.
       }
     },
@@ -148,5 +139,6 @@ export default {
 }
 .search-index td:last-child {
   min-width: calc(3 * 40px);
+  text-align: center;
 }
 </style>

@@ -106,4 +106,7 @@ export default {
 .search-indexes th {
   width: 30%
 }
+tfoot td:last-child {
+  text-align: center;
+}
 </style>
