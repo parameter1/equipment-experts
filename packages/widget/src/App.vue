@@ -48,8 +48,8 @@
 </template>
 
 <script>
-import SearchIndex from './components/SearchIndex.vue'
-import CreateIndex from './components/CreateIndex.vue'
+import SearchIndex from './components/SearchIndex.vue';
+import CreateIndex from './components/CreateIndex.vue';
 import FindAll from './graphql/queries/FindAll.gql';
 import CreateSearchIndex from './graphql/mutations/CreateSearchIndex.gql';
 import UpdateSearchIndex from './graphql/mutations/UpdateSearchIndex.gql';
@@ -114,7 +114,7 @@ export default {
       try {
         this.message = null;
         this.loading = false;
-        const id = $event.id;
+        const { id } = $event;
         await this.$apollo.mutate({ mutation: DeleteSearchIndex, variables: { id } });
         await this.$apollo.queries.find.refetch();
       } catch (e) {

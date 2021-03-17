@@ -27,7 +27,7 @@ export default {
       required: false,
     },
   },
-  data () {
+  data() {
     return {
       findIndustries: null,
       error: null,
@@ -36,13 +36,13 @@ export default {
   computed: {
     options() {
       const results = this.findIndustries ? this.findIndustries.results : [];
-      return results.map(v => ({ id: v, label: v }));
+      return results.map((v) => ({ id: v, label: v }));
     },
   },
   methods: {
     update(value) {
       this.$emit('update', value);
-    }
-  }
-}
+    },
+  },
+};
 </script>

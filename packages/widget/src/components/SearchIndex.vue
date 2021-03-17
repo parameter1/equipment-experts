@@ -5,7 +5,11 @@
       <span v-else>{{ industry }}</span>
     </td>
     <td>
-      <Manufacturers v-if="isEditing" :value="$data._manufacturer" @update="$data._manufacturer = $event"  />
+      <Manufacturers
+        v-if="isEditing"
+        :value="$data._manufacturer"
+        @update="$data._manufacturer = $event"
+      />
       <span v-else>{{ manufacturer }}</span>
     </td>
     <td>
@@ -23,9 +27,9 @@
 </template>
 
 <script>
-import Industries from './controls/Industries.vue'
-import Manufacturers from './controls/Manufacturers.vue'
-import Models from './controls/Models.vue'
+import Industries from './controls/Industries.vue';
+import Manufacturers from './controls/Manufacturers.vue';
+import Models from './controls/Models.vue';
 
 import Toolbar from './ToolbarUpdate.vue';
 
@@ -52,22 +56,17 @@ export default {
   data: (instance) => ({
     isLoading: false,
     isEditing: false,
-    _industry: instance.industry,
-    _manufacturer: instance.manufacturer,
-    _model: instance.model,
+    industry: instance.industry,
+    manufacturer: instance.manufacturer,
+    model: instance.model,
   }),
-  computed: {
-    isModified() {
-      return ['industry', 'manufacturer', 'model'].some((v) => this[v] !== this[`_${v}`]);
-    },
-  },
   methods: {
     save() {
       this.$emit('update', {
         id: this.id,
-        industry: this.$data._industry,
-        manufacturer: this.$data._manufacturer,
-        model: this.$data._model,
+        industry: this.$data.industry,
+        manufacturer: this.$data.manufacturer,
+        model: this.$data.model,
       });
       this.isEditing = false;
     },
@@ -77,7 +76,7 @@ export default {
     async remove() {
       this.$emit('remove', { id: this.id });
       this.isEditing = false;
-    }
+    },
   },
 };
 </script>

@@ -25,7 +25,7 @@ export default {
       required: false,
     },
   },
-  data () {
+  data() {
     return {
       error: null,
     };
@@ -36,16 +36,16 @@ export default {
         const term = searchQuery || this.value || '';
         const { data } = await this.$apollo.query({
           query: FindManufacturers,
-          variables: { query: term }
+          variables: { query: term },
         });
         const results = data ? data.findManufacturers.results : [];
-        const options = results.map(v => ({ id: v, label: v }));
+        const options = results.map((v) => ({ id: v, label: v }));
         callback(null, options);
       }
     },
     update(value) {
       this.$emit('update', value);
-    }
-  }
-}
+    },
+  },
+};
 </script>

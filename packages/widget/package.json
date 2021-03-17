@@ -1,6 +1,16 @@
 {
-  "name": "widget",
-  "version": "0.1.0",
+  "name": "@equipment-experts/widget",
+  "version": "0.0.0",
+  "description": "Vue UI for interacting with Equipment Experts",
+  "author": "Josh Worden <josh@parameter1.com>",
+  "homepage": "https://github.com/parameter1/equipment-experts/tree/main/packages/widget#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parameter1/equipment-experts.git",
+    "directory": "packages/widget"
+  },
+  "license": "MIT",
+  "main": "src/main.js",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -11,17 +21,19 @@
     "@riophae/vue-treeselect": "^0.4.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
-    "vue-apollo": "^3.0.0-beta.11"
+    "vue-apollo": "^3.0.0-beta.11",
+    "vue-cli-plugin-apollo": "^0.22.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "@vue/eslint-config-airbnb": "^5.3.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-vue": "^6.2.2",
     "graphql-tag": "^2.9.0",
-    "vue-cli-plugin-apollo": "^0.22.2",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

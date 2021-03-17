@@ -1,4 +1,3 @@
-
 <template>
   <icon-wrapper
     name="trashcan"
@@ -14,6 +13,7 @@
 
 <script>
 import IconWrapper from './_wrapper.vue';
+
 export default {
   components: { IconWrapper },
   props: {

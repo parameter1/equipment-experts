@@ -1,15 +1,19 @@
 <template>
   <tr class="search-index">
     <td>
-      <Industries v-if="isEditing" :value="$data._industry" @update="$data._industry = $event" />
+      <Industries v-if="isEditing" :value="$data.industry" @update="$data.industry = $event" />
       <span v-else>{{ industry }}</span>
     </td>
     <td>
-      <Manufacturers v-if="isEditing" :value="$data._manufacturer" @update="$data._manufacturer = $event"  />
+      <Manufacturers
+        v-if="isEditing"
+        :value="$data.manufacturer"
+        @update="$data.manufacturer = $event"
+      />
       <span v-else>{{ manufacturer }}</span>
     </td>
     <td>
-      <Models v-if="isEditing" :value="$data._model" @update="$data._model = $event"  />
+      <Models v-if="isEditing" :value="$data.model" @update="$data.model = $event"  />
       <span v-else>{{ model }}</span>
     </td>
     <Toolbar :is-editing="isEditing" :is-loading="isLoading" @create="create" @toggle="toggle" />
@@ -17,9 +21,9 @@
 </template>
 
 <script>
-import Industries from './controls/Industries.vue'
-import Manufacturers from './controls/Manufacturers.vue'
-import Models from './controls/Models.vue'
+import Industries from './controls/Industries.vue';
+import Manufacturers from './controls/Manufacturers.vue';
+import Models from './controls/Models.vue';
 
 import Toolbar from './ToolbarCreate.vue';
 
@@ -46,19 +50,19 @@ export default {
   data: (instance) => ({
     isLoading: false,
     isEditing: false,
-    _industry: instance.industry,
-    _manufacturer: instance.manufacturer,
-    _model: instance.model,
+    industry: instance.industry,
+    manufacturer: instance.manufacturer,
+    model: instance.model,
   }),
   methods: {
     create() {
       this.$emit('hide-message');
-      if (this.$data._industry && this.$data._manufacturer) {
+      if (this.$data.industry && this.$data.manufacturer) {
         this.isLoading = true;
         this.$emit('create', {
-          industry: this.$data._industry,
-          manufacturer: this.$data._manufacturer,
-          model: this.$data._model,
+          industry: this.$data.industry,
+          manufacturer: this.$data.manufacturer,
+          model: this.$data.model,
         });
         this.toggle();
       } else {
@@ -69,9 +73,9 @@ export default {
       if (this.isEditing) {
         this.$emit('hide-message');
         this.isLoading = false;
-        this.$data._industry = this.$props._industry;
-        this.$data._manufacturer = this.$props._manufacturer;
-        this.$data._model = this.$props._model;
+        this.$data.industry = this.$props.industry;
+        this.$data.manufacturer = this.$props.manufacturer;
+        this.$data.model = this.$props.model;
         this.error = null;
       }
       this.isEditing = !this.isEditing;
