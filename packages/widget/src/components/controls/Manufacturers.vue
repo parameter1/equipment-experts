@@ -5,6 +5,8 @@
     :async="true"
     :clearable="false"
     :load-options="loadOptions"
+    :required="true"
+    placeholder="Search manufacturers"
     @input="update"
   >
     <div slot="value-label" slot-scope="{ node }">{{ node.id }}</div>

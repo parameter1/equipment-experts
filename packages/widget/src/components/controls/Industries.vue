@@ -4,6 +4,9 @@
     :multiple="false"
     :options="options"
     :clearable="false"
+    :searchable="false"
+    :required="true"
+    placeholder="Select industry"
     @input="update"
   >
     <div slot="value-label" slot-scope="{ node }">{{ node.id }}</div>

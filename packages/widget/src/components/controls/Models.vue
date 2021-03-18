@@ -4,6 +4,8 @@
     :multiple="false"
     :async="true"
     :load-options="loadOptions"
+    :required="false"
+    placeholder="Search model numbers"
     @input="update"
   >
     <div slot="value-label" slot-scope="{ node }">{{ node.id }}</div>
