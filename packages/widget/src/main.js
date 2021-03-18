@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
-import { createProvider } from './vue-apollo';
+import createProvider from './plugins/apollo-provider';
 
 import './styles/index.css';
 import './styles/vue-treeselect.css';
