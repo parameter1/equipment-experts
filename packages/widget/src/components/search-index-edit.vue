@@ -6,8 +6,19 @@
       <label class="font-semibold col-span-2">Manufacturer</label>
       <label class="font-semibold col-span-2">Model</label>
       <div class="flex flex-col justify-around">
-        <ActionButton v-if="isEditing" v-on:click.native="save" text="Save" icon="save" />
-        <ActionButton v-else v-on:click.native="isEditing = true" text="Edit" icon="edit" />
+        <ActionButton
+          v-if="isEditing"
+          v-on:click.native="save"
+          text="Save"
+          icon="save"
+          type="submit"
+        />
+        <ActionButton
+          v-else
+          v-on:click.native="isEditing = true"
+          text="Edit"
+          icon="edit"
+        />
       </div>
     </div>
     <div class="grid grid-cols-7 gap-3">
