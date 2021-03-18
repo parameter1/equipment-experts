@@ -1,8 +1,8 @@
 <template>
   <button
-    type="button"
     :class="classes"
     :title="title"
+    :type="type"
     @click="$emit('click')"
   >
 
@@ -35,6 +35,10 @@ export default {
     },
     icon: {
       type: String,
+    },
+    type: {
+      type: String,
+      defaultValue: 'button',
     },
   },
   computed: {
