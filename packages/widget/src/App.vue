@@ -48,7 +48,7 @@
 <script>
 import LoadingSpinner from './components/loading-spinner.vue';
 import Alert from './components/alert.vue';
-import SearchIndex from './components/SearchIndex.vue';
+import SearchIndex from './components/search-index-edit.vue';
 import CreateIndex from './components/CreateIndex.vue';
 import ActionButton from './components/ActionButton.vue';
 import FindAll from './graphql/queries/FindAll.gql';
