@@ -1,36 +1,20 @@
 <template>
-  <div class="pl-3 flex flex-col justify-around" v-if="isEditing">
-    <ActionButton v-on:click.native="$emit('update')" :is-loading="isLoading">
-      <IconSave />
-    </ActionButton>
-    <ActionButton v-on:click.native="$emit('toggle')">
-      <IconCancel />
-    </ActionButton>
-    <ActionButton v-on:click.native="$emit('remove')" :is-loading="isLoading">
-      <IconDelete />
-    </ActionButton>
+  <div class="flex flex-col justify-around" v-if="isEditing">
+    <ActionButton v-on:click.native="$emit('update')" text="Save" icon="save" />
+    <ActionButton v-on:click.native="$emit('toggle')" text="Cancel" icon="cancel" />
   </div>
-  <div class="pl-3 flex flex-col justify-around" v-else>
-    <ActionButton v-on:click.native="$emit('toggle')">
-      <IconEdit />
-    </ActionButton>
+  <div class="flex flex-col justify-around" v-else>
+    <ActionButton v-on:click.native="$emit('toggle')" text="Edit" icon="edit" />
+    <ActionButton v-on:click.native="$emit('remove')" text="Delete" icon="trash" />
   </div>
 </template>
 
 <script>
 import ActionButton from './ActionButton.vue';
-import IconDelete from './icons/Delete.vue';
-import IconSave from './icons/Save.vue';
-import IconEdit from './icons/Edit.vue';
-import IconCancel from './icons/Cancel.vue';
 
 export default {
   components: {
     ActionButton,
-    IconDelete,
-    IconSave,
-    IconEdit,
-    IconCancel,
   },
   props: {
     isEditing: {

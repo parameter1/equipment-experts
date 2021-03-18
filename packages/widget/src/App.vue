@@ -17,9 +17,7 @@
         <div>
           {{ find.length }} search indexes
         </div>
-        <ActionButton v-on:click.native="isCreating = true">
-          Add an index
-        </ActionButton>
+        <ActionButton v-on:click.native="isCreating = true" text="Add an index" icon="add" />
       </div>
       <div class="my-5"></div>
       <ul class="space-y-5">

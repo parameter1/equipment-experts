@@ -1,13 +1,13 @@
 <template>
   <li class="bg-white shadow rounded border-r-6 flex min-h-110px border-green-500 p-3 relative
-  grid grid-cols-3 gap-3">
-    <div class="flex flex-col">
-      <label>Industry</label>
+  grid grid-cols-7 gap-3">
+    <div class="flex flex-col col-span-2">
+      <label class="font-semibold">Industry</label>
       <Industries v-if="isEditing" :value="$data.lIndustry" @update="$data.lIndustry = $event" />
       <span v-else>{{ industry }}</span>
     </div>
-    <div class="flex flex-col">
-      <label>Manufacturer</label>
+    <div class="flex flex-col col-span-2">
+      <label class="font-semibold">Manufacturer</label>
       <Manufacturers
         v-if="isEditing"
         :value="$data.lManufacturer"
@@ -15,20 +15,18 @@
       />
       <span v-else>{{ manufacturer }}</span>
     </div>
-    <div class="flex justify-between">
-      <div class="flex flex-col">
-        <label>Model</label>
-        <Models v-if="isEditing" :value="$data.lModel" @update="$data.lModel = $event"  />
-        <span v-else>{{ model }}</span>
-      </div>
-      <Toolbar
-        :is-editing="isEditing"
-        :is-loading="isLoading"
-        @toggle="toggle"
-        @update="save"
-        @remove="remove"
-      />
+    <div class="flex flex-col col-span-2">
+      <label class="font-semibold">Model</label>
+      <Models v-if="isEditing" :value="$data.lModel" @update="$data.lModel = $event"  />
+      <span v-else>{{ model }}</span>
     </div>
+    <Toolbar
+      :is-editing="isEditing"
+      :is-loading="isLoading"
+      @toggle="toggle"
+      @update="save"
+      @remove="remove"
+    />
   </li>
 </template>
 
