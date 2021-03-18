@@ -121,7 +121,6 @@ export default {
         this.error = null;
         const update = { ...$event, contentId: this.contentId };
         await this.$apollo.mutate({ mutation: UpdateSearchIndex, variables: { update } });
-        await this.$apollo.queries.find.refetch();
       } catch (e) {
         this.error = e;
       }
