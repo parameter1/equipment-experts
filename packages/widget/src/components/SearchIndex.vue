@@ -3,22 +3,22 @@
   grid grid-cols-3 gap-3">
     <div class="flex flex-col">
       <label>Industry</label>
-      <Industries v-if="isEditing" :value="$data._industry" @update="$data._industry = $event" />
+      <Industries v-if="isEditing" :value="$data.lIndustry" @update="$data.lIndustry = $event" />
       <span v-else>{{ industry }}</span>
     </div>
     <div class="flex flex-col">
       <label>Manufacturer</label>
       <Manufacturers
         v-if="isEditing"
-        :value="$data._manufacturer"
-        @update="$data._manufacturer = $event"
+        :value="$data.lManufacturer"
+        @update="$data.lManufacturer = $event"
       />
       <span v-else>{{ manufacturer }}</span>
     </div>
     <div class="flex justify-between">
       <div class="flex flex-col">
         <label>Model</label>
-        <Models v-if="isEditing" :value="$data._model" @update="$data._model = $event"  />
+        <Models v-if="isEditing" :value="$data.lModel" @update="$data.lModel = $event"  />
         <span v-else>{{ model }}</span>
       </div>
       <Toolbar
@@ -62,17 +62,17 @@ export default {
   data: (instance) => ({
     isLoading: false,
     isEditing: false,
-    industry: instance.industry,
-    manufacturer: instance.manufacturer,
-    model: instance.model,
+    lIndustry: instance.industry,
+    lManufacturer: instance.manufacturer,
+    lModel: instance.model,
   }),
   methods: {
     save() {
       this.$emit('update', {
         id: this.id,
-        industry: this.$data.industry,
-        manufacturer: this.$data.manufacturer,
-        model: this.$data.model,
+        industry: this.$data.lIndustry,
+        manufacturer: this.$data.lManufacturer,
+        model: this.$data.lModel,
       });
       this.isEditing = false;
     },

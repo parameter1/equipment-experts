@@ -22,7 +22,7 @@
         </ActionButton>
       </div>
       <div class="my-5"></div>
-      <ul class="space-y-5 mb-20">
+      <ul class="space-y-5">
         <SearchIndex
           v-for="index in find"
           :key="index.id"
@@ -52,10 +52,12 @@ import LoadingSpinner from './components/loading-spinner.vue';
 import Alert from './components/alert.vue';
 import SearchIndex from './components/SearchIndex.vue';
 import CreateIndex from './components/CreateIndex.vue';
+import ActionButton from './components/ActionButton.vue';
 import FindAll from './graphql/queries/FindAll.gql';
 import CreateSearchIndex from './graphql/mutations/CreateSearchIndex.gql';
 import UpdateSearchIndex from './graphql/mutations/UpdateSearchIndex.gql';
 import DeleteSearchIndex from './graphql/mutations/DeleteSearchIndex.gql';
+import GraphQLError from './utils/graphql-error';
 
 export default {
   name: 'App',
@@ -67,6 +69,10 @@ export default {
           contentId: this.contentId,
         };
       },
+      error(e) {
+        const error = new GraphQLError(e);
+        this.error = error;
+      },
     },
   },
   components: {
@@ -74,12 +80,12 @@ export default {
     LoadingSpinner,
     SearchIndex,
     CreateIndex,
+    ActionButton,
   },
   props: {
     contentId: {
       type: Number,
       required: true,
-      default: () => 15064118,
     },
   },
   data() {
