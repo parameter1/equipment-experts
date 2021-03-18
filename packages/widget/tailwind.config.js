@@ -21,9 +21,6 @@ module.exports = {
       fontFamily: {
         sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
       },
-      animation: {
-        'spin-fast': 'spin 500ms linear infinite',
-      },
       colors: {
         'base-blue-main': '#008cba',
         'base-blue-hover': '#006687',
@@ -39,6 +36,12 @@ module.exports = {
         'base-gray-3': '#838383', // content list item text color
         'base-gray-2': '#999', // result and filter header color
         'base-gray-1': '#e8e8e8', // result list bg color
+      },
+      animation: {
+        'spin-fast': 'spin 500ms linear infinite',
+      },
+      borderWidth: {
+        6: '6px',
       },
     },
   },

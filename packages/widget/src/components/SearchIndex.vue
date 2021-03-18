@@ -1,32 +1,50 @@
 <template>
-  <li class="bg-white shadow rounded border-r-6 flex min-h-110px border-green-500 p-3 relative
-  grid grid-cols-7 gap-3">
-    <div class="flex flex-col col-span-2">
-      <label class="font-semibold">Industry</label>
-      <Industries v-if="isEditing" :value="$data.lIndustry" @update="$data.lIndustry = $event" />
-      <span v-else>{{ industry }}</span>
+  <li class="bg-white shadow rounded border-r-6 min-h-110px border-green-500 p-3 relative
+  grid grid-rows-2 gap-1">
+    <div class="grid grid-cols-7 gap-3">
+      <label class="font-semibold col-span-2">Industry</label>
+      <label class="font-semibold col-span-2">Manufacturer</label>
+      <label class="font-semibold col-span-2">Model</label>
+      <div class="flex flex-col justify-around">
+        <ActionButton v-if="isEditing" v-on:click.native="save" text="Save" icon="save" />
+        <ActionButton v-else v-on:click.native="isEditing = true" text="Edit" icon="edit" />
+      </div>
     </div>
-    <div class="flex flex-col col-span-2">
-      <label class="font-semibold">Manufacturer</label>
-      <Manufacturers
-        v-if="isEditing"
-        :value="$data.lManufacturer"
-        @update="$data.lManufacturer = $event"
-      />
-      <span v-else>{{ manufacturer }}</span>
+    <div class="grid grid-cols-7 gap-3">
+      <div class="col-span-2">
+        <Industries
+          v-if="isEditing"
+          :value="$data.lIndustry"
+          @update="$data.lIndustry = $event"
+        />
+        <span v-else>{{ industry }}</span>
+      </div>
+      <div class="col-span-2">
+        <Manufacturers
+          v-if="isEditing"
+          :value="$data.lManufacturer"
+          @update="$data.lManufacturer = $event"
+        />
+        <span v-else>{{ manufacturer }}</span>
+      </div>
+      <div class="col-span-2">
+        <Models
+          v-if="isEditing"
+          :value="$data.lModel"
+          @update="$data.lModel = $event"
+        />
+        <span v-else>{{ model }}</span>
+      </div>
+      <div class="flex flex-col justify-around">
+        <ActionButton
+          v-if="isEditing"
+          v-on:click.native="isEditing = false"
+          text="Cancel"
+          icon="cancel"
+        />
+        <ActionButton v-else v-on:click.native="remove" text="Delete" icon="trash" />
+      </div>
     </div>
-    <div class="flex flex-col col-span-2">
-      <label class="font-semibold">Model</label>
-      <Models v-if="isEditing" :value="$data.lModel" @update="$data.lModel = $event"  />
-      <span v-else>{{ model }}</span>
-    </div>
-    <Toolbar
-      :is-editing="isEditing"
-      :is-loading="isLoading"
-      @toggle="toggle"
-      @update="save"
-      @remove="remove"
-    />
   </li>
 </template>
 
@@ -35,14 +53,14 @@ import Industries from './controls/Industries.vue';
 import Manufacturers from './controls/Manufacturers.vue';
 import Models from './controls/Models.vue';
 
-import Toolbar from './ToolbarUpdate.vue';
+import ActionButton from './ActionButton.vue';
 
 export default {
   components: {
     Industries,
     Manufacturers,
     Models,
-    Toolbar,
+    ActionButton,
   },
   props: {
     id: {
