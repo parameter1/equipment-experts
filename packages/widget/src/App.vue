@@ -120,6 +120,8 @@ export default {
       try {
         this.error = null;
         const update = { ...$event, contentId: this.contentId };
+        // Allow removal of model
+        update.model = update.model || null;
         await this.$apollo.mutate({ mutation: UpdateSearchIndex, variables: { update } });
       } catch (e) {
         this.error = e;
