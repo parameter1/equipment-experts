@@ -8,7 +8,7 @@ module.exports = {
     '@vue/airbnb',
   ],
   plugins: [
-    'graphql'
+    'graphql',
   ],
   parserOptions: {
     parser: 'babel-eslint',
