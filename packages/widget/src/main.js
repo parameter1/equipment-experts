@@ -7,7 +7,13 @@ import './styles/vue-treeselect.css';
 
 Vue.config.productionTip = false;
 
-new Vue({
-  apolloProvider: createProvider(),
-  render: (h) => h(App, { props: { contentId: 15064118 } }),
-}).$mount('#app');
+const EEWidget = ({ url, el, props }) => new Vue({
+  el,
+  apolloProvider: createProvider(url),
+  render: (h) => h(App, { props }),
+});
+
+if (Array.isArray(window.EEWidgetQueue)) {
+  window.EEWidgetQueue.forEach((args) => EEWidget(...args));
+}
+window.EEWidget = EEWidget;

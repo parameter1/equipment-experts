@@ -6,12 +6,25 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <script>
+      (function(w, f) {
+        var l = f + 'Queue'; w[l] = w[l] || [];
+        w[f] = w[f] || function() { w[l].push(arguments); };
+      })(window, 'EEWidget');
+    </script>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <script>
+      EEWidget({
+        url: 'http://localhost:33733/graphql',
+        el: '#equipment-experts-target',
+        props: { contentId: 15064118 },
+      });
+    </script>
+    <div id="equipment-experts-target"></div>
     <!-- built files will be auto injected -->
   </body>
 </html>
