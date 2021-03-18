@@ -1,20 +1,20 @@
 <template>
-  <td v-if="isEditing">
-    <ActionButton v-on:click.native="$emit('toggle')">
-      <IconCancel />
-    </ActionButton>
+  <div class="pl-3 flex flex-col justify-around" v-if="isEditing">
     <ActionButton v-on:click.native="$emit('update')" :is-loading="isLoading">
       <IconSave />
+    </ActionButton>
+    <ActionButton v-on:click.native="$emit('toggle')">
+      <IconCancel />
     </ActionButton>
     <ActionButton v-on:click.native="$emit('remove')" :is-loading="isLoading">
       <IconDelete />
     </ActionButton>
-  </td>
-  <td v-else>
+  </div>
+  <div class="pl-3 flex flex-col justify-around" v-else>
     <ActionButton v-on:click.native="$emit('toggle')">
       <IconEdit />
     </ActionButton>
-  </td>
+  </div>
 </template>
 
 <script>

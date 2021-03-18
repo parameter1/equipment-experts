@@ -1,27 +1,28 @@
 <template>
-  <div class="antialiased">
-    <div v-if="isLoading" class="h-screen flex">
+  <div class="antialiased bg-gray-100 mx-auto p-4 sm:p-6 md:p-8">
+    <div class="pb-4">
+      <h1 class="text-xl font-semibold mr-2">Experts Exchange</h1>
+    </div>
+    <div v-if="isLoading" class="flex">
       <div class="m-auto flex items-center">
-        <h1 class="text-xl font-semibold mr-2">Loading Equipment Experts Search Indexes</h1>
+        <h1 class="text-xl font-semibold mr-2">Loading</h1>
         <loading-spinner color="blue-700" :size=8 />
       </div>
     </div>
-    <div v-else-if="error" class="h-screen flex">
-      <alert type="danger" class="m-auto max-w-4xl" header="An error occurred">
-        {{ error.error }}
-      </alert>
-    </div>
-    <div v-else class="h-screen flex overflow-hidden bg-gray-100">
-    <table class="table search-indexes">
-      <thead>
-        <tr>
-          <th>Industry</th>
-          <th>Manufacturer</th>
-          <th>Model</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
+    <alert v-else-if="error" type="danger" class="m-auto max-w-4xl" header="An error occurred">
+      {{ error.message }}
+    </alert>
+    <div v-else class="overflow-hidden">
+      <div class="flex justify-between items-center">
+        <div>
+          {{ find.length }} search indexes
+        </div>
+        <ActionButton v-on:click.native="isCreating = true">
+          Add an index
+        </ActionButton>
+      </div>
+      <div class="my-5"></div>
+      <ul class="space-y-5 mb-20">
         <SearchIndex
           v-for="index in find"
           :key="index.id"
@@ -35,21 +36,13 @@
           @hide-message="hideMessage"
           @show-message="showMessage"
         />
-      </tbody>
-      <CreateIndex
-        :content-id="contentId"
-        @create="create"
-        @hide-message="hideMessage"
-        @show-message="showMessage"
-      />
-      <tfoot v-if="error" class="search-feedback">
-        <tr>
-          <td colspan="4">
-            {{ error }}
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+        <CreateIndex v-if="isCreating"
+          :content-id="contentId"
+          @create="create"
+          @hide-message="hideMessage"
+          @show-message="showMessage"
+        />
+      </ul>
     </div>
   </div>
 </template>
@@ -92,6 +85,7 @@ export default {
   data() {
     return {
       error: null,
+      isCreating: false,
     };
   },
   computed: {
@@ -112,6 +106,7 @@ export default {
         const input = { ...$event, contentId: this.contentId };
         await this.$apollo.mutate({ mutation: CreateSearchIndex, variables: { input } });
         await this.$apollo.queries.find.refetch();
+        this.isCreating = false;
       } catch (e) {
         this.error = e;
       }

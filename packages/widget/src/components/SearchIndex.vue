@@ -1,29 +1,35 @@
 <template>
-  <tr class="search-index">
-    <td>
+  <li class="bg-white shadow rounded border-r-6 flex min-h-110px border-green-500 p-3 relative
+  grid grid-cols-3 gap-3">
+    <div class="flex flex-col">
+      <label>Industry</label>
       <Industries v-if="isEditing" :value="$data._industry" @update="$data._industry = $event" />
       <span v-else>{{ industry }}</span>
-    </td>
-    <td>
+    </div>
+    <div class="flex flex-col">
+      <label>Manufacturer</label>
       <Manufacturers
         v-if="isEditing"
         :value="$data._manufacturer"
         @update="$data._manufacturer = $event"
       />
       <span v-else>{{ manufacturer }}</span>
-    </td>
-    <td>
-      <Models v-if="isEditing" :value="$data._model" @update="$data._model = $event"  />
-      <span v-else>{{ model }}</span>
-    </td>
-    <Toolbar
-      :is-editing="isEditing"
-      :is-loading="isLoading"
-      @toggle="toggle"
-      @update="save"
-      @remove="remove"
-    />
-  </tr>
+    </div>
+    <div class="flex justify-between">
+      <div class="flex flex-col">
+        <label>Model</label>
+        <Models v-if="isEditing" :value="$data._model" @update="$data._model = $event"  />
+        <span v-else>{{ model }}</span>
+      </div>
+      <Toolbar
+        :is-editing="isEditing"
+        :is-loading="isLoading"
+        @toggle="toggle"
+        @update="save"
+        @remove="remove"
+      />
+    </div>
+  </li>
 </template>
 
 <script>
