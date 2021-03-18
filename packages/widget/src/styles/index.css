@@ -4,3 +4,52 @@
 @tailwind utilities;
 
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
+
+.vue-treeselect__input {
+  @apply focus:ring-0;
+}
+
+.vue-treeselect__placeholder {
+  @apply text-sm;
+}
+
+.vue-treeselect__placeholder {
+  @apply text-gray-400 !important;
+}
+
+.vue-treeselect__multi-value-item {
+  @apply bg-base-blue-main text-white !important;
+}
+
+.vue-treeselect__multi-value-label {
+  @apply border-gray-300 !important;
+}
+
+.vue-treeselect__value-remove {
+  @apply text-white hover:text-red-200 border-gray-300 !important;
+}
+
+.vue-treeselect__checkbox--checked {
+  @apply bg-base-blue-main border-base-blue-main !important;
+}
+
+.vue-treeselect__label-container:hover .vue-treeselect__checkbox--unchecked {
+  @apply border-base-blue-main !important;
+}
+
+.vue-treeselect__control {
+  @apply border-base-gray-8 !important;
+  height: 38px !important;
+}
+
+.vue-treeselect__x-container {
+  @apply text-gray-400 hover:text-red-500 !important;
+}
+
+.vue-treeselect__control-arrow {
+  @apply text-gray-700 !important;
+}
+
+.vue-treeselect__placeholder {
+  line-height: 36px !important;
+}

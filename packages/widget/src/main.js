@@ -3,6 +3,7 @@ import App from './App.vue';
 import { createProvider } from './vue-apollo';
 
 import './styles/index.css';
+import './styles/vue-treeselect.css';
 
 Vue.config.productionTip = false;
 
