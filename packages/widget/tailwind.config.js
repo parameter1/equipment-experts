@@ -1,10 +1,8 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const forms = require('@tailwindcss/forms');
 const typography = require('@tailwindcss/typography');
 
 module.exports = {
   plugins: [
-    forms,
     typography,
   ],
   purge: {
