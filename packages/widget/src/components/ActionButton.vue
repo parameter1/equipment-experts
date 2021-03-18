@@ -23,11 +23,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-button {
-  margin: .25rem;
-  padding: .25rem;
-  cursor: pointer;
-}
-</style>

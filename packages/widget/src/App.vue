@@ -138,35 +138,3 @@ export default {
   },
 };
 </script>
-
-<style>
-/*! @import */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* @import '@riophae/vue-treeselect'; */
-/* @import '../../../node_modules/@riophae/vue-treeselect/dist/vue-treeselect.css'; */
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-#app thead {
-  text-align: left;
-}
-.search-indexes {
-  width: 100%;
-}
-.search-indexes th {
-  width: 30%
-}
-.search-feedback {
-  color: rgb(136, 0, 0);
-  text-align: center;
-  font-size: small;
-}
-</style>

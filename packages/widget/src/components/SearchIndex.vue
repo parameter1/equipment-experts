@@ -80,9 +80,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.search-index td {
-  max-width: 30%
-}
-</style>

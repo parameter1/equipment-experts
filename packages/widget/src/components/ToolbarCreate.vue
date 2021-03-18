@@ -39,10 +39,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-td {
-  max-width: 30%;
-  min-width: calc(3 * 40px);
-}
-</style>
