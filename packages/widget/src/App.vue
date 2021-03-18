@@ -51,7 +51,7 @@ import LoadingSpinner from './components/loading-spinner.vue';
 import Alert from './components/alert.vue';
 import SearchIndex from './components/search-index-edit.vue';
 import CreateIndex from './components/search-index-create.vue';
-import ActionButton from './components/ActionButton.vue';
+import ActionButton from './components/action-button.vue';
 import FindAll from './graphql/queries/FindAll.gql';
 import CreateSearchIndex from './graphql/mutations/CreateSearchIndex.gql';
 import UpdateSearchIndex from './graphql/mutations/UpdateSearchIndex.gql';

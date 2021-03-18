@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import Industries from './controls/Industries.vue';
-import Manufacturers from './controls/Manufacturers.vue';
-import Models from './controls/Models.vue';
+import Industries from './fields/industries.vue';
+import Manufacturers from './fields/manufacturers.vue';
+import Models from './fields/models.vue';
 
-import ActionButton from './ActionButton.vue';
+import ActionButton from './action-button.vue';
 
 export default {
   components: {

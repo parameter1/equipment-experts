@@ -5,26 +5,25 @@
     :type="type"
     @click="$emit('click')"
   >
-
     <span v-if="text" class="pr-1 text-sm hidden lg:block">{{ text }}</span>
     <component :is="iconComponent" class="h-5 w-5 relative" />
   </button>
 </template>
 
 <script>
-import IconCancel from './icons/x-circle-sm.vue';
-import IconSave from './icons/save-sm.vue';
-import IconEdit from './icons/pencil-alt-sm.vue';
-import IconTrash from './icons/trash-sm.vue';
 import IconAdd from './icons/plus-sm.vue';
+import IconCancel from './icons/x-circle-sm.vue';
+import IconEdit from './icons/pencil-alt-sm.vue';
+import IconSave from './icons/save-sm.vue';
+import IconTrash from './icons/trash-sm.vue';
 
 export default {
   components: {
-    IconCancel,
-    IconSave,
-    IconEdit,
-    IconTrash,
     IconAdd,
+    IconCancel,
+    IconEdit,
+    IconSave,
+    IconTrash,
   },
   props: {
     title: {
