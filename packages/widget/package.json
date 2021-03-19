@@ -14,7 +14,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "scripts/build-widget.sh $npm_package_version",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service lint"
   },

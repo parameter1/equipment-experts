@@ -13,7 +13,12 @@ const EEWidget = ({ url, el, props }) => new Vue({
   render: (h) => h(App, { props }),
 });
 
-if (Array.isArray(window.EEWidgetQueue)) {
-  window.EEWidgetQueue.forEach((args) => EEWidget(...args));
+const { isArray } = Array;
+const { EEWidgetQueue } = window;
+
+if (isArray(EEWidgetQueue)) {
+  EEWidgetQueue.forEach((args) => {
+    EEWidget(...args);
+  });
 }
 window.EEWidget = EEWidget;
