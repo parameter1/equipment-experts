@@ -1,5 +1,6 @@
 <template>
-  <div class="antialiased bg-gray-100 mx-auto p-4 sm:p-6 md:p-8">
+  <div class="antialiased bg-gray-100 mx-auto p-4 sm:p-6 md:p-8 flex flex-col my-5 rounded border-2
+  border-grey">
     <div class="pb-4">
       <h1 class="text-xl font-semibold mr-2">Experts Exchange</h1>
     </div>
