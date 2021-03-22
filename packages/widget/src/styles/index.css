@@ -5,51 +5,51 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
 
-.vue-treeselect__input {
-  @apply focus:ring-0;
+.ee-select.vue-treeselect__input {
+  @apply focus:tw-ring-0;
 }
 
-.vue-treeselect__placeholder {
-  @apply text-sm;
+.ee-select.vue-treeselect__placeholder {
+  @apply tw-text-sm;
 }
 
-.vue-treeselect__placeholder {
-  @apply text-gray-400 !important;
+.ee-select.vue-treeselect__placeholder {
+  @apply tw-text-gray-400 !important;
 }
 
-.vue-treeselect__multi-value-item {
-  @apply bg-base-blue-main text-white !important;
+.ee-select.vue-treeselect__multi-value-item {
+  @apply tw-bg-base-blue-main tw-text-white !important;
 }
 
-.vue-treeselect__multi-value-label {
-  @apply border-gray-300 !important;
+.ee-select.vue-treeselect__multi-value-label {
+  @apply tw-border-gray-300 !important;
 }
 
-.vue-treeselect__value-remove {
-  @apply text-white hover:text-red-200 border-gray-300 !important;
+.ee-select.vue-treeselect__value-remove {
+  @apply tw-text-white hover:tw-text-red-200 tw-border-gray-300 !important;
 }
 
-.vue-treeselect__checkbox--checked {
-  @apply bg-base-blue-main border-base-blue-main !important;
+.ee-select.vue-treeselect__checkbox--checked {
+  @apply tw-bg-base-blue-main tw-border-base-blue-main !important;
 }
 
-.vue-treeselect__label-container:hover .vue-treeselect__checkbox--unchecked {
-  @apply border-base-blue-main !important;
+.ee-select.vue-treeselect__label-container:hover .ee-select.vue-treeselect__checkbox--unchecked {
+  @apply tw-border-base-blue-main !important;
 }
 
-.vue-treeselect__control {
-  @apply border-base-gray-8 !important;
+.ee-select.vue-treeselect__control {
+  @apply tw-border-base-gray-8 !important;
   height: 38px !important;
 }
 
-.vue-treeselect__x-container {
-  @apply text-gray-400 hover:text-red-500 !important;
+.ee-select.vue-treeselect__x-container {
+  @apply tw-text-gray-400 hover:tw-text-red-500 !important;
 }
 
-.vue-treeselect__control-arrow {
-  @apply text-gray-700 !important;
+.ee-select.vue-treeselect__control-arrow {
+  @apply tw-text-gray-700 !important;
 }
 
-.vue-treeselect__placeholder {
+.ee-select.vue-treeselect__placeholder {
   line-height: 36px !important;
 }

@@ -1,5 +1,6 @@
 <template>
   <tree-select
+    class="ee-select"
     :value="value"
     :multiple="false"
     :options="options"
