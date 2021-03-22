@@ -21,7 +21,7 @@ module.exports = merge({
      * Returns all SearchIndexes for a content id
      */
     async find(_, { contentId }, { repo }) {
-      const cursor = await repo.find({ contentId });
+      const cursor = await repo.find({ query: { contentId } });
       return cursor.toArray();
     },
     /**
