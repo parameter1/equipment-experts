@@ -7,10 +7,12 @@
       <label class="tw-font-semibold tw-col-span-2 tw-text-base">Model</label>
       <div class="tw-flex tw-flex-col tw-justify-around">
         <action-button
-          v-if="isEditing"
+          v-if="isFormVisible"
           v-on:click.native="save"
           label="Save"
           icon="save"
+          :is-loading="isSaving"
+          :disabled="isSaving"
         />
         <action-button
           v-else
@@ -22,24 +24,24 @@
     </div>
     <div class="tw-grid tw-grid-cols-7 tw-gap-3">
       <div class="tw-col-span-2">
-        <Industries
-          v-if="isEditing"
+        <industries
+          v-if="isFormVisible"
           :value="$data.lIndustry"
           @update="$data.lIndustry = $event"
         />
         <span v-else>{{ industry }}</span>
       </div>
       <div class="tw-col-span-2">
-        <Manufacturers
-          v-if="isEditing"
+        <manufacturers
+          v-if="isFormVisible"
           :value="$data.lManufacturer"
           @update="$data.lManufacturer = $event"
         />
         <span v-else>{{ manufacturer }}</span>
       </div>
       <div class="tw-col-span-2">
-        <Models
-          v-if="isEditing"
+        <models
+          v-if="isFormVisible"
           :value="$data.lModel"
           @update="$data.lModel = $event"
         />
@@ -47,17 +49,20 @@
       </div>
       <div class="tw-flex tw-flex-col tw-justify-around">
         <action-button
-          v-if="isEditing"
+          v-if="isFormVisible"
           v-on:click.native="isEditing = false"
           label="Cancel"
           icon="cancel"
+          :disabled="isLoading || isSaving"
         />
         <action-button
           v-else
           v-on:click="remove"
-          must-confirm="true"
+          :must-confirm=true
           label="Delete"
           icon="trash"
+          :is-loading="isDeleting"
+          :disabled="isDeleting"
         />
       </div>
     </div>
@@ -90,9 +95,25 @@ export default {
     industry: String,
     manufacturer: String,
     model: String,
+    isLoading: {
+      type: Boolean,
+      required: true,
+    },
+    isDeleting: {
+      type: Boolean,
+      required: true,
+    },
+    isSaving: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  computed: {
+    isFormVisible() {
+      return this.isLoading || this.isSaving || this.isEditing;
+    },
   },
   data: (instance) => ({
-    isLoading: false,
     isEditing: false,
     lIndustry: instance.industry,
     lManufacturer: instance.manufacturer,

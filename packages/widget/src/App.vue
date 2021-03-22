@@ -10,7 +10,9 @@
           <span v-if="find">{{ find.length }}</span> search indexes
         </div>
         <action-button
-          v-on:click.native="isCreating = true"
+          v-on:click.native="isCreateVisible = true"
+          :disabled="isLoading || isCreateVisible"
+          :is-loading="isLoading"
           label="Add an index"
           icon="add"
         />
@@ -19,7 +21,7 @@
       <div v-if="isLoading" class="tw-flex">
         <div class="tw-m-auto tw-flex tw-items-center">
           <h1 class="tw-text-xl tw-font-semibold tw-mr-2">Loading</h1>
-          <loading-spinner color="gray-700" :size=5 />
+          <loading-spinner color="gray-600" :size=5 />
         </div>
       </div>
       <ul v-else class="tw-space-y-5">
@@ -31,15 +33,20 @@
           :industry="index.industry"
           :manufacturer="index.manufacturer"
           :model="index.model"
+          :is-loading="isLoading"
+          :is-saving="isSaving"
+          :is-deleting="isDeleting"
           @update="update"
           @remove="remove"
           @hide-message="hideMessage"
           @show-message="showMessage"
         />
-        <CreateIndex v-if="isCreating"
+        <CreateIndex v-if="isCreateVisible"
           :content-id="contentId"
+          :is-loading="isLoading"
+          :is-creating="isCreating"
           @create="create"
-          @cancel="isCreating = false"
+          @cancel="cancel"
           @hide-message="hideMessage"
           @show-message="showMessage"
         />
@@ -101,7 +108,10 @@ export default {
   data() {
     return {
       error: null,
+      isCreateVisible: false,
       isCreating: false,
+      isDeleting: false,
+      isSaving: false,
     };
   },
   computed: {
@@ -117,17 +127,25 @@ export default {
       this.error = { message };
     },
     async create($event) {
+      this.isCreating = true;
       try {
         this.error = null;
         const input = { ...$event, contentId: this.contentId };
         await this.$apollo.mutate({ mutation: CreateSearchIndex, variables: { input } });
         await this.$apollo.queries.find.refetch();
-        this.isCreating = false;
+        this.isCreateVisible = false;
       } catch (e) {
         this.error = e;
+      } finally {
+        this.isCreating = false;
       }
     },
+    cancel() {
+      this.isCreateVisible = false;
+      this.hideMessage();
+    },
     async update($event) {
+      this.isSaving = true;
       try {
         this.error = null;
         const update = { ...$event, contentId: this.contentId };
@@ -136,9 +154,12 @@ export default {
         await this.$apollo.mutate({ mutation: UpdateSearchIndex, variables: { update } });
       } catch (e) {
         this.error = e;
+      } finally {
+        this.isSaving = false;
       }
     },
     async remove($event) {
+      this.isDeleting = true;
       try {
         this.error = null;
         const { id } = $event;
@@ -146,6 +167,8 @@ export default {
         await this.$apollo.queries.find.refetch();
       } catch (e) {
         this.error = e;
+      } finally {
+        this.isDeleting = false;
       }
     },
   },

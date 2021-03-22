@@ -6,24 +6,32 @@
       <label class="tw-font-semibold tw-col-span-2 tw-text-base">Manufacturer</label>
       <label class="tw-font-semibold tw-col-span-2 tw-text-base">Model</label>
       <div class="tw-flex tw-flex-col tw-justify-around">
-        <action-button v-on:click.native="create" label="Save" icon="save" button-type="submit" />
+        <action-button
+          v-on:click.native="create"
+          label="Save"
+          icon="save"
+          button-type="submit"
+          loading-label="Saving"
+          :is-loading="isLoading || isCreating"
+          :disabled="isLoading || isCreating"
+        />
       </div>
     </div>
     <div class="tw-grid tw-grid-cols-7 tw-gap-3">
       <div class="tw-col-span-2">
-        <Industries
+        <industries
           :value="$data.industry"
           @update="$data.industry = $event"
         />
       </div>
       <div class="tw-col-span-2">
-        <Manufacturers
+        <manufacturers
           :value="$data.manufacturer"
           @update="$data.manufacturer = $event"
         />
       </div>
       <div class="tw-col-span-2">
-        <Models
+        <models
           :value="$data.model"
           @update="$data.model = $event"
         />
@@ -33,6 +41,7 @@
           v-on:click.native="$emit('cancel')"
           label="Cancel"
           icon="cancel"
+          :disabled="isLoading || isCreating"
         />
       </div>
     </div>
@@ -58,9 +67,16 @@ export default {
       type: Number,
       required: true,
     },
+    isLoading: {
+      type: Boolean,
+      required: true,
+    },
+    isCreating: {
+      type: Boolean,
+      required: true,
+    },
   },
   data: () => ({
-    isLoading: false,
     isEditing: false,
     industry: null,
     manufacturer: null,
@@ -70,27 +86,17 @@ export default {
     create() {
       this.$emit('hide-message');
       if (this.$data.industry && this.$data.manufacturer) {
-        this.isLoading = true;
         this.$emit('create', {
           industry: this.$data.industry,
           manufacturer: this.$data.manufacturer,
           model: this.$data.model,
         });
-        this.toggle();
-      } else {
-        this.$emit('show-message', 'Industry and Manufacturer must be specified!', 'text-danger');
-      }
-    },
-    async toggle() {
-      if (this.isEditing) {
-        this.$emit('hide-message');
-        this.isLoading = false;
         this.$data.industry = this.$props.industry;
         this.$data.manufacturer = this.$props.manufacturer;
         this.$data.model = this.$props.model;
-        this.error = null;
+      } else {
+        this.$emit('show-message', 'Industry and Manufacturer must be specified!', 'text-danger');
       }
-      this.isEditing = !this.isEditing;
     },
   },
 };

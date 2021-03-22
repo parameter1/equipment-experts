@@ -12,7 +12,7 @@
   >
     <span v-if="showLabel" class="tw-pr-1 tw-text-sm tw-hidden lg:tw-block">{{ buttonLabel }}</span>
     <div v-if="showIcons" class="tw-h-5 tw-w-5 tw-relative">
-      <loading-spinner v-if="isLoading" size="small" />
+      <loading-spinner v-if="isLoading" :size=5 color="white" />
       <icon-alert v-else-if="isConfirming" />
       <component v-else :is="iconComponent" />
     </div>
@@ -101,6 +101,54 @@ export default {
       return `icon-${this.icon}`;
     },
 
+    buttonClasses() {
+      const classes = [
+        'tw-mb-1',
+        'tw-bg-base-blue-main',
+        'tw--ml-px',
+        'tw-inline-flex',
+        'tw-items-center',
+        'tw-px-3',
+        'tw-py-2',
+        'tw-rounded-md',
+        'tw-border',
+        'tw-border-base-blue-border',
+        'tw-text-white',
+        'hover:tw-bg-base-blue-hover',
+        'hover:tw-border-base-blue-border-hover',
+        'active:tw-bg-base-blue-active',
+        'active:tw-border-base-blue-border-active',
+        'focus:tw-outline-none',
+        'focus:tw-bg-base-blue-active',
+        'focus:tw-border-base-blue-border-active',
+        'focus:tw-shadow-inner',
+        'focus:tw-z-10',
+        'tw-flex',
+        'tw-flex-row',
+        'tw-justify-around',
+        'lg:tw-justify-between',
+      ];
+      if (this.disabled) {
+        if (this.isLoading) {
+          classes.push([
+            'tw-cursor-wait',
+            'tw-bg-base-blue-active',
+            'tw-border-base-blue-border-active',
+          ]);
+        } else {
+          classes.push([
+            'tw-cursor-not-allowed',
+            'tw-bg-base-gray-2',
+            'hover:tw-bg-base-gray-2',
+            'tw-border-base-gray-9',
+            'hover:tw-border-base-gray-9',
+          ]);
+        }
+      }
+
+      return classes;
+    },
+
     buttonLabel() {
       if (this.isLoading) return this.loadingLabel;
       if (this.promptConfirm) return this.confirmLabel;
@@ -114,30 +162,6 @@ export default {
 
   data: () => ({
     promptConfirm: false,
-    buttonClasses: [
-      'tw-mb-1',
-      'tw-bg-base-blue-main',
-      'tw--ml-px',
-      'tw-inline-flex',
-      'tw-items-center',
-      'tw-px-3',
-      'tw-py-2',
-      'tw-rounded-md',
-      'tw-border',
-      'tw-border-base-blue-border',
-      'tw-text-white',
-      'hover:tw-bg-base-blue-hover',
-      'hover:tw-border-base-blue-border-hover',
-      'focus:tw-outline-none',
-      'focus:tw-bg-base-blue-active',
-      'focus:tw-border-base-blue-border-active',
-      'focus:tw-shadow-inner',
-      'focus:tw-z-10',
-      'tw-flex',
-      'tw-flex-row',
-      'tw-justify-around',
-      'lg:tw-justify-between',
-    ],
   }),
 
   /**
