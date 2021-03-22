@@ -60,6 +60,7 @@
           v-else
           v-on:click="remove"
           :must-confirm=true
+          loading-label="Deleting"
           label="Delete"
           icon="trash"
           :is-loading="isDeleting"
@@ -76,6 +77,7 @@ import Manufacturers from './fields/manufacturers.vue';
 import Models from './fields/models.vue';
 import ActionButton from './action-button.vue';
 import UpdateSearchIndex from '../graphql/mutations/UpdateSearchIndex.gql';
+import DeleteSearchIndex from '../graphql/mutations/DeleteSearchIndex.gql';
 
 export default {
   components: {
@@ -96,14 +98,6 @@ export default {
     industry: String,
     manufacturer: String,
     model: String,
-    isLoading: {
-      type: Boolean,
-      required: true,
-    },
-    isDeleting: {
-      type: Boolean,
-      required: true,
-    },
   },
   computed: {
     isFormVisible() {
@@ -113,6 +107,7 @@ export default {
   data: (instance) => ({
     isEditing: false,
     isSaving: false,
+    isDeleting: false,
     lIndustry: instance.industry,
     lManufacturer: instance.manufacturer,
     lModel: instance.model,
@@ -142,9 +137,18 @@ export default {
     async toggle() {
       this.isEditing = !this.isEditing;
     },
+
     async remove() {
-      this.$emit('remove', { id: this.id });
-      this.isEditing = false;
+      this.isDeleting = true;
+      this.error = null;
+      try {
+        await this.$apollo.mutate({ mutation: DeleteSearchIndex, variables: { id: this.id } });
+        this.$emit('refresh');
+      } catch (e) {
+        this.$emit('show-message', e);
+      } finally {
+        this.isDeleting = false;
+      }
     },
   },
 };

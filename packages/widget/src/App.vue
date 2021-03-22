@@ -23,8 +23,7 @@
           :is-loading="isLoading"
           :is-saving="isSaving"
           :is-deleting="isDeleting"
-          @update="update"
-          @remove="remove"
+          @refresh="refresh"
           @hide-message="hideMessage"
           @show-message="showMessage"
         />
@@ -70,7 +69,6 @@ import CreateIndex from './components/search-index-create.vue';
 import ActionButton from './components/action-button.vue';
 import FindAll from './graphql/queries/FindAll.gql';
 import CreateSearchIndex from './graphql/mutations/CreateSearchIndex.gql';
-import DeleteSearchIndex from './graphql/mutations/DeleteSearchIndex.gql';
 import GraphQLError from './utils/graphql-error';
 
 export default {
@@ -138,22 +136,12 @@ export default {
         this.isCreating = false;
       }
     },
+    refresh() {
+      return this.$apollo.queries.find.refetch();
+    },
     cancel() {
       this.isCreateVisible = false;
       this.hideMessage();
-    },
-    async remove($event) {
-      this.isDeleting = true;
-      try {
-        this.error = null;
-        const { id } = $event;
-        await this.$apollo.mutate({ mutation: DeleteSearchIndex, variables: { id } });
-        await this.$apollo.queries.find.refetch();
-      } catch (e) {
-        this.error = e;
-      } finally {
-        this.isDeleting = false;
-      }
     },
   },
 };
