@@ -74,8 +74,8 @@
 import Industries from './fields/industries.vue';
 import Manufacturers from './fields/manufacturers.vue';
 import Models from './fields/models.vue';
-
 import ActionButton from './action-button.vue';
+import UpdateSearchIndex from '../graphql/mutations/UpdateSearchIndex.gql';
 
 export default {
   components: {
@@ -104,10 +104,6 @@ export default {
       type: Boolean,
       required: true,
     },
-    isSaving: {
-      type: Boolean,
-      required: true,
-    },
   },
   computed: {
     isFormVisible() {
@@ -116,19 +112,32 @@ export default {
   },
   data: (instance) => ({
     isEditing: false,
+    isSaving: false,
     lIndustry: instance.industry,
     lManufacturer: instance.manufacturer,
     lModel: instance.model,
   }),
   methods: {
-    save() {
-      this.$emit('update', {
-        id: this.id,
-        industry: this.$data.lIndustry,
-        manufacturer: this.$data.lManufacturer,
-        model: this.$data.lModel,
-      });
-      this.isEditing = false;
+    async save() {
+      this.isSaving = true;
+      this.error = null;
+      try {
+        const update = {
+          id: this.id,
+          industry: this.$data.lIndustry,
+          manufacturer: this.$data.lManufacturer,
+          model: this.$data.lModel,
+          contentId: this.contentId,
+        };
+        // Allow removal of model
+        update.model = update.model || null;
+        await this.$apollo.mutate({ mutation: UpdateSearchIndex, variables: { update } });
+      } catch (e) {
+        this.error = e;
+      } finally {
+        this.isSaving = false;
+        this.isEditing = false;
+      }
     },
     async toggle() {
       this.isEditing = !this.isEditing;

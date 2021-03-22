@@ -70,7 +70,6 @@ import CreateIndex from './components/search-index-create.vue';
 import ActionButton from './components/action-button.vue';
 import FindAll from './graphql/queries/FindAll.gql';
 import CreateSearchIndex from './graphql/mutations/CreateSearchIndex.gql';
-import UpdateSearchIndex from './graphql/mutations/UpdateSearchIndex.gql';
 import DeleteSearchIndex from './graphql/mutations/DeleteSearchIndex.gql';
 import GraphQLError from './utils/graphql-error';
 
@@ -142,20 +141,6 @@ export default {
     cancel() {
       this.isCreateVisible = false;
       this.hideMessage();
-    },
-    async update($event) {
-      this.isSaving = true;
-      try {
-        this.error = null;
-        const update = { ...$event, contentId: this.contentId };
-        // Allow removal of model
-        update.model = update.model || null;
-        await this.$apollo.mutate({ mutation: UpdateSearchIndex, variables: { update } });
-      } catch (e) {
-        this.error = e;
-      } finally {
-        this.isSaving = false;
-      }
     },
     async remove($event) {
       this.isDeleting = true;
