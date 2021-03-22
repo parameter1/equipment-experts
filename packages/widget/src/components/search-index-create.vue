@@ -11,9 +11,9 @@
           label="Save"
           icon="save"
           button-type="submit"
-          loading-label="Saving"
-          :is-loading="isLoading || isCreating"
-          :disabled="isLoading || isCreating"
+          loading-label="Creating"
+          :is-loading="isCreating"
+          :disabled="isCreating"
         />
       </div>
     </div>
@@ -41,10 +41,18 @@
           v-on:click.native="$emit('cancel')"
           label="Cancel"
           icon="cancel"
-          :disabled="isLoading || isCreating"
+          :disabled="isCreating"
         />
       </div>
     </div>
+    <alert
+      v-if="error"
+      type="danger"
+      class="tw-m-auto tw-max-w-4xl tw-mt-4"
+      header="An error occurred"
+    >
+      {{ error.message }}
+    </alert>
   </li>
 </template>
 
@@ -52,11 +60,13 @@
 import Industries from './fields/industries.vue';
 import Manufacturers from './fields/manufacturers.vue';
 import Models from './fields/models.vue';
-
 import ActionButton from './action-button.vue';
+import Alert from './alert.vue';
+import CreateSearchIndex from '../graphql/mutations/CreateSearchIndex.gql';
 
 export default {
   components: {
+    Alert,
     Industries,
     Manufacturers,
     Models,
@@ -67,35 +77,47 @@ export default {
       type: Number,
       required: true,
     },
-    isLoading: {
-      type: Boolean,
-      required: true,
-    },
-    isCreating: {
-      type: Boolean,
-      required: true,
-    },
   },
   data: () => ({
-    isEditing: false,
+    isCreating: false,
     industry: null,
     manufacturer: null,
     model: null,
+    error: null,
   }),
+  mounted() {
+    this.$el.scrollIntoView({ behavior: 'smooth' });
+  },
   methods: {
-    create() {
-      this.$emit('hide-message');
-      if (this.$data.industry && this.$data.manufacturer) {
-        this.$emit('create', {
+    async create() {
+      if (!this.$data.industry || !this.$data.manufacturer) {
+        this.error = new Error('Industry and manufacturer are required!');
+        return;
+      }
+      try {
+        this.isCreating = true;
+        this.error = null;
+        const input = {
           industry: this.$data.industry,
           manufacturer: this.$data.manufacturer,
           model: this.$data.model,
-        });
+          contentId: this.contentId,
+        };
+        if (!this.$data.industry || !this.$data.manufacturer) {
+          throw new Error('Industry and manufacturer are required!');
+        }
+
+        await this.$apollo.mutate({ mutation: CreateSearchIndex, variables: { input } });
+        this.$emit('refresh');
+        this.$emit('cancel');
+      } catch (e) {
+        this.error = e;
+      } finally {
         this.$data.industry = this.$props.industry;
         this.$data.manufacturer = this.$props.manufacturer;
         this.$data.model = this.$props.model;
-      } else {
-        this.$emit('show-message', 'Industry and Manufacturer must be specified!', 'text-danger');
+        this.isCreating = false;
+        this.$emit('refresh');
       }
     },
   },

@@ -5,6 +5,18 @@
       <h1 class="tw-text-xl tw-font-semibold tw-m-0">Experts Exchange</h1>
     </div>
     <div class="">
+      <div class="tw-flex tw-justify-between tw-items-center">
+        <div>
+          <span v-if="find">{{ find.length }}</span> search indexes
+        </div>
+        <action-button
+          v-on:click.native="isCreateVisible = true"
+          :disabled="isLoading || isCreateVisible"
+          label="Add an index"
+          icon="add"
+        />
+      </div>
+      <div class="tw-my-5"></div>
       <div v-if="isLoading" class="tw-flex">
         <div class="tw-m-auto tw-flex tw-items-center">
           <h1 class="tw-text-xl tw-font-semibold tw-mr-2">Loading</h1>
@@ -20,35 +32,20 @@
           :industry="index.industry"
           :manufacturer="index.manufacturer"
           :model="index.model"
-          :is-loading="isLoading"
-          :is-saving="isSaving"
-          :is-deleting="isDeleting"
           @refresh="refresh"
           @hide-message="hideMessage"
           @show-message="showMessage"
         />
-        <CreateIndex v-if="isCreateVisible"
+        <CreateIndex
+          v-if="isCreateVisible"
+          ref="create"
           :content-id="contentId"
-          :is-loading="isLoading"
-          :is-creating="isCreating"
-          @create="create"
+          @refresh="refresh"
           @cancel="cancel"
           @hide-message="hideMessage"
           @show-message="showMessage"
         />
       </ul>
-      <div class="tw-my-5"></div>
-      <div class="tw-flex tw-justify-between tw-items-center">
-        <div>
-          <span v-if="find">{{ find.length }}</span> search indexes
-        </div>
-        <action-button
-          v-on:click.native="isCreateVisible = true"
-          :disabled="isLoading || isCreateVisible"
-          label="Add an index"
-          icon="add"
-        />
-      </div>
     </div>
     <alert
       v-if="error"
@@ -68,7 +65,6 @@ import SearchIndex from './components/search-index-edit.vue';
 import CreateIndex from './components/search-index-create.vue';
 import ActionButton from './components/action-button.vue';
 import FindAll from './graphql/queries/FindAll.gql';
-import CreateSearchIndex from './graphql/mutations/CreateSearchIndex.gql';
 import GraphQLError from './utils/graphql-error';
 
 export default {
@@ -121,20 +117,6 @@ export default {
     },
     showMessage(message) {
       this.error = { message };
-    },
-    async create($event) {
-      this.isCreating = true;
-      try {
-        this.error = null;
-        const input = { ...$event, contentId: this.contentId };
-        await this.$apollo.mutate({ mutation: CreateSearchIndex, variables: { input } });
-        await this.$apollo.queries.find.refetch();
-        this.isCreateVisible = false;
-      } catch (e) {
-        this.error = e;
-      } finally {
-        this.isCreating = false;
-      }
     },
     refresh() {
       return this.$apollo.queries.find.refetch();
