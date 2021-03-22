@@ -13,13 +13,14 @@
           icon="save"
           loading-label="Saving"
           :is-loading="isSaving"
-          :disabled="isSaving"
+          :is-disabled="isSaving || isDeleting"
         />
         <action-button
           v-else
           v-on:click.native="isEditing = true"
           label="Edit"
           icon="edit"
+          :is-disabled="isDeleting"
         />
       </div>
     </div>
@@ -28,6 +29,7 @@
         <industries
           v-if="isFormVisible"
           :value="$data.lIndustry"
+          :is-disabled="isSaving || isDeleting"
           @update="$data.lIndustry = $event"
         />
         <span v-else>{{ industry }}</span>
@@ -36,6 +38,7 @@
         <manufacturers
           v-if="isFormVisible"
           :value="$data.lManufacturer"
+          :is-disabled="isSaving || isDeleting"
           @update="$data.lManufacturer = $event"
         />
         <span v-else>{{ manufacturer }}</span>
@@ -44,6 +47,7 @@
         <models
           v-if="isFormVisible"
           :value="$data.lModel"
+          :is-disabled="isSaving || isDeleting"
           @update="$data.lModel = $event"
         />
         <span v-else>{{ model }}</span>
@@ -54,7 +58,7 @@
           v-on:click.native="isEditing = false"
           label="Cancel"
           icon="cancel"
-          :disabled="isLoading || isSaving"
+          :disabled="isSaving"
         />
         <action-button
           v-else
@@ -101,7 +105,7 @@ export default {
   },
   computed: {
     isFormVisible() {
-      return this.isLoading || this.isSaving || this.isEditing;
+      return this.isSaving || this.isEditing;
     },
   },
   data: (instance) => ({

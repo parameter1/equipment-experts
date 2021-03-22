@@ -2,6 +2,7 @@
   <tree-select
     class="ee-select"
     :value="value"
+    :disabled="isDisabled"
     :multiple="false"
     :async="true"
     :clearable="false"
@@ -26,6 +27,10 @@ export default {
     value: {
       type: String,
       required: false,
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
