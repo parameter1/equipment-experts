@@ -5,19 +5,6 @@
       <h1 class="tw-text-xl tw-font-semibold tw-m-0">Experts Exchange</h1>
     </div>
     <div class="">
-      <div class="tw-flex tw-justify-between tw-items-center">
-        <div>
-          <span v-if="find">{{ find.length }}</span> search indexes
-        </div>
-        <action-button
-          v-on:click.native="isCreateVisible = true"
-          :disabled="isLoading || isCreateVisible"
-          :is-loading="isLoading"
-          label="Add an index"
-          icon="add"
-        />
-      </div>
-      <div class="tw-my-5"></div>
       <div v-if="isLoading" class="tw-flex">
         <div class="tw-m-auto tw-flex tw-items-center">
           <h1 class="tw-text-xl tw-font-semibold tw-mr-2">Loading</h1>
@@ -51,6 +38,18 @@
           @show-message="showMessage"
         />
       </ul>
+      <div class="tw-my-5"></div>
+      <div class="tw-flex tw-justify-between tw-items-center">
+        <div>
+          <span v-if="find">{{ find.length }}</span> search indexes
+        </div>
+        <action-button
+          v-on:click.native="isCreateVisible = true"
+          :disabled="isLoading || isCreateVisible"
+          label="Add an index"
+          icon="add"
+        />
+      </div>
     </div>
     <alert
       v-if="error"

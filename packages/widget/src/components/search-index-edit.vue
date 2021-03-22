@@ -11,6 +11,7 @@
           v-on:click.native="save"
           label="Save"
           icon="save"
+          loading-label="Saving"
           :is-loading="isSaving"
           :disabled="isSaving"
         />
