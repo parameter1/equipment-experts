@@ -9,7 +9,11 @@
         <div>
           <span v-if="find">{{ find.length }}</span> search indexes
         </div>
-        <ActionButton v-on:click.native="isCreating = true" text="Add an index" icon="add" />
+        <action-button
+          v-on:click.native="isCreating = true"
+          label="Add an index"
+          icon="add"
+        />
       </div>
       <div class="tw-my-5"></div>
       <div v-if="isLoading" class="tw-flex">

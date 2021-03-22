@@ -6,16 +6,16 @@
       <label class="tw-font-semibold tw-col-span-2 tw-text-base">Manufacturer</label>
       <label class="tw-font-semibold tw-col-span-2 tw-text-base">Model</label>
       <div class="tw-flex tw-flex-col tw-justify-around">
-        <ActionButton
+        <action-button
           v-if="isEditing"
           v-on:click.native="save"
-          text="Save"
+          label="Save"
           icon="save"
         />
-        <ActionButton
+        <action-button
           v-else
           v-on:click.native="isEditing = true"
-          text="Edit"
+          label="Edit"
           icon="edit"
         />
       </div>
@@ -46,13 +46,19 @@
         <span v-else>{{ model }}</span>
       </div>
       <div class="tw-flex tw-flex-col tw-justify-around">
-        <ActionButton
+        <action-button
           v-if="isEditing"
           v-on:click.native="isEditing = false"
-          text="Cancel"
+          label="Cancel"
           icon="cancel"
         />
-        <ActionButton v-else v-on:click.native="remove" text="Delete" icon="trash" />
+        <action-button
+          v-else
+          v-on:click="remove"
+          must-confirm="true"
+          label="Delete"
+          icon="trash"
+        />
       </div>
     </div>
   </li>

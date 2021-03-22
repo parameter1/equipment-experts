@@ -6,7 +6,7 @@
       <label class="tw-font-semibold tw-col-span-2">Manufacturer</label>
       <label class="tw-font-semibold tw-col-span-2">Model</label>
       <div class="tw-flex tw-flex-col tw-justify-around">
-        <ActionButton v-on:click.native="create" text="Save" icon="save" button-type="submit" />
+        <action-button v-on:click.native="create" label="Save" icon="save" button-type="submit" />
       </div>
     </div>
     <div class="tw-grid tw-grid-cols-7 tw-gap-3">
@@ -29,9 +29,9 @@
         />
       </div>
       <div class="tw-flex tw-flex-col tw-justify-around">
-        <ActionButton
+        <action-button
           v-on:click.native="$emit('cancel')"
-          text="Cancel"
+          label="Cancel"
           icon="cancel"
         />
       </div>
