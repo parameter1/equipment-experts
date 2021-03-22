@@ -6,7 +6,6 @@ then
 fi
 
 vue-cli-service build \
-  --no-clean \
   --target lib \
   --inline-vue \
   --name EEWidgetObject \

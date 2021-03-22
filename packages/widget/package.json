@@ -15,6 +15,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "scripts/build-widget.sh $npm_package_version",
+    "deploy": "aws s3 sync dist s3://cdn.parameter1.com/equipment-experts-widget/v$npm_package_version/ --cache-control max-age=31536000,public",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service lint"
   },
