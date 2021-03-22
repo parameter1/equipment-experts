@@ -2,9 +2,9 @@
   <li class="tw-bg-white tw-shadow tw-rounded tw-min-h-110px
   tw-p-3 tw-relative tw-grid tw-grid-rows-2 tw-gap-1">
     <div class="tw-grid tw-grid-cols-7 tw-gap-3">
-      <label class="tw-font-semibold tw-col-span-2">Industry</label>
-      <label class="tw-font-semibold tw-col-span-2">Manufacturer</label>
-      <label class="tw-font-semibold tw-col-span-2">Model</label>
+      <label class="tw-font-semibold tw-col-span-2 tw-text-base">Industry</label>
+      <label class="tw-font-semibold tw-col-span-2 tw-text-base">Manufacturer</label>
+      <label class="tw-font-semibold tw-col-span-2 tw-text-base">Model</label>
       <div class="tw-flex tw-flex-col tw-justify-around">
         <action-button v-on:click.native="create" label="Save" icon="save" button-type="submit" />
       </div>
