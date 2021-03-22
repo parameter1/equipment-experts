@@ -1,24 +1,24 @@
 <template>
-  <div class="antialiased bg-gray-100 mx-auto p-4 sm:p-6 md:p-8 flex flex-col my-5 rounded border-2
-  border-grey">
-    <div class="pb-4">
-      <h1 class="text-xl font-semibold mr-2">Experts Exchange</h1>
+  <div class="tw-antialiased tw-bg-base-gray-1 tw-mx-auto tw-p-4 sm:tw-p-6 md:tw-p-8 tw-flex
+  tw-flex-col tw-my-5 tw-border tw-border-base-gray-9">
+    <div class="tw-pb-4">
+      <h1 class="tw-text-xl tw-font-semibold tw-m-0">Experts Exchange</h1>
     </div>
     <div class="">
-      <div class="flex justify-between items-center">
+      <div class="tw-flex tw-justify-between tw-items-center">
         <div>
           <span v-if="find">{{ find.length }}</span> search indexes
         </div>
         <ActionButton v-on:click.native="isCreating = true" text="Add an index" icon="add" />
       </div>
-      <div class="my-5"></div>
-      <div v-if="isLoading" class="flex">
-        <div class="m-auto flex items-center">
-          <h1 class="text-xl font-semibold mr-2">Loading</h1>
-          <loading-spinner color="blue-700" :size=8 />
+      <div class="tw-my-5"></div>
+      <div v-if="isLoading" class="tw-flex">
+        <div class="tw-m-auto tw-flex tw-items-center">
+          <h1 class="tw-text-xl tw-font-semibold tw-mr-2">Loading</h1>
+          <loading-spinner color="gray-700" :size=5 />
         </div>
       </div>
-      <ul v-else class="space-y-5">
+      <ul v-else class="tw-space-y-5">
         <SearchIndex
           v-for="index in find"
           :key="index.id"
@@ -41,7 +41,12 @@
         />
       </ul>
     </div>
-    <alert v-if="error" type="danger" class="m-auto max-w-4xl mt-4" header="An error occurred">
+    <alert
+      v-if="error"
+      type="danger"
+      class="tw-m-auto tw-max-w-4xl tw-mt-4"
+      header="An error occurred"
+    >
       {{ error.message }}
     </alert>
   </div>
@@ -69,6 +74,7 @@ export default {
           contentId: this.contentId,
         };
       },
+      // watch loading here
       error(e) {
         const error = new GraphQLError(e);
         this.error = error;

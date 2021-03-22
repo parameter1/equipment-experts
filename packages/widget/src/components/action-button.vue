@@ -2,11 +2,11 @@
   <button
     :class="classes"
     :title="title"
-    :type="type"
+    :type="buttonType"
     @click="$emit('click')"
   >
-    <span v-if="text" class="pr-1 text-sm hidden lg:block">{{ text }}</span>
-    <component :is="iconComponent" class="h-5 w-5 relative" />
+    <span v-if="text" class="tw-pr-1 tw-text-sm tw-hidden lg:tw-block">{{ text }}</span>
+    <component :is="iconComponent" class="tw-h-5 tw-w-5 tw-relative" />
   </button>
 </template>
 
@@ -35,9 +35,9 @@ export default {
     icon: {
       type: String,
     },
-    type: {
+    buttonType: {
       type: String,
-      defaultValue: 'button',
+      default: 'button',
     },
   },
   computed: {
@@ -61,28 +61,28 @@ export default {
 
   data: () => ({
     classes: [
-      'mb-1',
-      'bg-base-blue-main',
-      '-ml-px',
-      'inline-flex',
-      'items-center',
-      'px-3',
-      'py-2',
-      'rounded-md',
-      'border',
-      'border-base-blue-border',
-      'text-white',
-      'hover:bg-base-blue-hover',
-      'hover:border-base-blue-border-hover',
-      'focus:outline-none',
-      'focus:bg-base-blue-active',
-      'focus:border-base-blue-border-active',
-      'focus:shadow-inner',
-      'focus:z-10',
-      'flex',
-      'flex-row',
-      'justify-around',
-      'lg:justify-between',
+      'tw-mb-1',
+      'tw-bg-base-blue-main',
+      'tw--ml-px',
+      'tw-inline-flex',
+      'tw-items-center',
+      'tw-px-3',
+      'tw-py-2',
+      'tw-rounded-md',
+      'tw-border',
+      'tw-border-base-blue-border',
+      'tw-text-white',
+      'hover:tw-bg-base-blue-hover',
+      'hover:tw-border-base-blue-border-hover',
+      'focus:tw-outline-none',
+      'focus:tw-bg-base-blue-active',
+      'focus:tw-border-base-blue-border-active',
+      'focus:tw-shadow-inner',
+      'focus:tw-z-10',
+      'tw-flex',
+      'tw-flex-row',
+      'tw-justify-around',
+      'lg:tw-justify-between',
     ],
   }),
 };

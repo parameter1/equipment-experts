@@ -3,14 +3,14 @@
     :class="containerClasses"
     role="alert"
   >
-    <div class="flex">
-      <div class="flex-shrink-0">
+    <div class="tw-flex">
+      <div class="tw-flex-shrink-0">
         <component
           :is="icon"
           :class="iconClasses"
         />
       </div>
-      <div class="ml-3">
+      <div class="tw-ml-3">
         <slot name="header">
           <h3
             v-if="header"
@@ -57,49 +57,49 @@ export default {
     },
     containerClasses() {
       const core = [
-        'p-4',
-        'border-l-4',
-        'shadow-sm',
-        'rounded',
+        'tw-p-4',
+        'tw-border-l-4',
+        'tw-shadow-sm',
+        'tw-rounded',
       ];
       const types = {
-        primary: ['bg-blue-50', 'border-blue-400'],
-        success: ['bg-green-50', 'border-green-400'],
-        danger: ['bg-red-50', 'border-red-400'],
+        primary: ['tw-bg-blue-50', 'tw-border-blue-400'],
+        success: ['tw-bg-green-50', 'tw-border-green-400'],
+        danger: ['tw-bg-red-50', 'tw-border-red-400'],
       };
       const type = types[this.type];
       if (!type) return core;
       return [...core, ...type];
     },
     iconClasses() {
-      const core = ['h-5', 'w-5'];
+      const core = ['tw-h-5', 'tw-w-5'];
       const types = {
-        primary: ['text-blue-400'],
-        success: ['text-green-400'],
-        danger: ['text-red-400'],
+        primary: ['tw-text-blue-400'],
+        success: ['tw-text-green-400'],
+        danger: ['tw-text-red-400'],
       };
       const type = types[this.type];
       if (!type) return core;
       return [...core, ...type];
     },
     headerClasses() {
-      const core = ['text-sm', 'leading-5', 'font-semibold'];
+      const core = ['tw-text-sm', 'tw-leading-5', 'tw-font-semibold'];
       const types = {
-        primary: ['text-blue-800'],
-        success: ['text-green-800'],
-        danger: ['text-red-800'],
+        primary: ['tw-text-blue-800'],
+        success: ['tw-text-green-800'],
+        danger: ['tw-text-red-800'],
       };
       const type = types[this.type];
       if (!type) return core;
       return [...core, ...type];
     },
     bodyClasses() {
-      const core = ['text-sm', 'leading-5'];
-      if (this.header) core.push('mt-2');
+      const core = ['tw-text-sm', 'tw-leading-5'];
+      if (this.header) core.push('tw-mt-2');
       const types = {
-        primary: ['text-blue-700'],
-        success: ['text-green-700'],
-        danger: ['text-red-700'],
+        primary: ['tw-text-blue-700'],
+        success: ['tw-text-green-700'],
+        danger: ['tw-text-red-700'],
       };
       const type = types[this.type];
       if (!type) return core;

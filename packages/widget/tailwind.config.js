@@ -26,6 +26,7 @@ module.exports = {
         'base-blue-border': '#0079a1',
         'base-blue-border-hover': '#004b63',
         'base-blue-border-active': '#001921',
+        'base-gray-9': '#c0c0c0', // Fieldset borders
         'base-gray-8': '#ddd', // facet list group item border color
         'base-gray-7': '#222', // content type facet color
         'base-gray-6': '#24282c', // left ribbon nav bg color
@@ -50,4 +51,5 @@ module.exports = {
       textColor: ['disabled'],
     },
   },
+  prefix: 'tw-',
 };

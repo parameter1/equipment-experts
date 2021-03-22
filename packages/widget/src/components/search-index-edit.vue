@@ -1,17 +1,16 @@
 <template>
-  <li class="bg-white shadow rounded border-r-6 min-h-110px border-green-500 p-3 relative
-  grid grid-rows-2 gap-1">
-    <div class="grid grid-cols-7 gap-3">
-      <label class="font-semibold col-span-2">Industry</label>
-      <label class="font-semibold col-span-2">Manufacturer</label>
-      <label class="font-semibold col-span-2">Model</label>
-      <div class="flex flex-col justify-around">
+  <li class="tw-bg-white tw-shadow tw-rounded tw-min-h-110px
+    tw-p-3 tw-relative tw-grid tw-grid-rows-2 tw-gap-1">
+    <div class="tw-grid tw-grid-cols-7 tw-gap-3">
+      <label class="tw-font-semibold tw-col-span-2 tw-text-base">Industry</label>
+      <label class="tw-font-semibold tw-col-span-2 tw-text-base">Manufacturer</label>
+      <label class="tw-font-semibold tw-col-span-2 tw-text-base">Model</label>
+      <div class="tw-flex tw-flex-col tw-justify-around">
         <ActionButton
           v-if="isEditing"
           v-on:click.native="save"
           text="Save"
           icon="save"
-          type="submit"
         />
         <ActionButton
           v-else
@@ -21,8 +20,8 @@
         />
       </div>
     </div>
-    <div class="grid grid-cols-7 gap-3">
-      <div class="col-span-2">
+    <div class="tw-grid tw-grid-cols-7 tw-gap-3">
+      <div class="tw-col-span-2">
         <Industries
           v-if="isEditing"
           :value="$data.lIndustry"
@@ -30,7 +29,7 @@
         />
         <span v-else>{{ industry }}</span>
       </div>
-      <div class="col-span-2">
+      <div class="tw-col-span-2">
         <Manufacturers
           v-if="isEditing"
           :value="$data.lManufacturer"
@@ -38,7 +37,7 @@
         />
         <span v-else>{{ manufacturer }}</span>
       </div>
-      <div class="col-span-2">
+      <div class="tw-col-span-2">
         <Models
           v-if="isEditing"
           :value="$data.lModel"
@@ -46,7 +45,7 @@
         />
         <span v-else>{{ model }}</span>
       </div>
-      <div class="flex flex-col justify-around">
+      <div class="tw-flex tw-flex-col tw-justify-around">
         <ActionButton
           v-if="isEditing"
           v-on:click.native="isEditing = false"

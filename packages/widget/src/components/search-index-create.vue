@@ -1,34 +1,34 @@
 <template>
-  <li class="bg-white shadow rounded border-r-6 min-h-110px border-yellow-500 p-3 relative
-  grid grid-rows-2 gap-1">
-    <div class="grid grid-cols-7 gap-3">
-      <label class="font-semibold col-span-2">Industry</label>
-      <label class="font-semibold col-span-2">Manufacturer</label>
-      <label class="font-semibold col-span-2">Model</label>
-      <div class="flex flex-col justify-around">
-        <ActionButton v-on:click.native="create" text="Save" icon="save" type="submit" />
+  <li class="tw-bg-white tw-shadow tw-rounded tw-min-h-110px
+  tw-p-3 tw-relative tw-grid tw-grid-rows-2 tw-gap-1">
+    <div class="tw-grid tw-grid-cols-7 tw-gap-3">
+      <label class="tw-font-semibold tw-col-span-2">Industry</label>
+      <label class="tw-font-semibold tw-col-span-2">Manufacturer</label>
+      <label class="tw-font-semibold tw-col-span-2">Model</label>
+      <div class="tw-flex tw-flex-col tw-justify-around">
+        <ActionButton v-on:click.native="create" text="Save" icon="save" button-type="submit" />
       </div>
     </div>
-    <div class="grid grid-cols-7 gap-3">
-      <div class="col-span-2">
+    <div class="tw-grid tw-grid-cols-7 tw-gap-3">
+      <div class="tw-col-span-2">
         <Industries
           :value="$data.industry"
           @update="$data.industry = $event"
         />
       </div>
-      <div class="col-span-2">
+      <div class="tw-col-span-2">
         <Manufacturers
           :value="$data.manufacturer"
           @update="$data.manufacturer = $event"
         />
       </div>
-      <div class="col-span-2">
+      <div class="tw-col-span-2">
         <Models
           :value="$data.model"
           @update="$data.model = $event"
         />
       </div>
-      <div class="flex flex-col justify-around">
+      <div class="tw-flex tw-flex-col tw-justify-around">
         <ActionButton
           v-on:click.native="$emit('cancel')"
           text="Cancel"
