@@ -16,15 +16,8 @@ jobs:
       version: ${{ steps.tag_version.outputs.VERSION }}
       image: ${{ github.repository }}-graphql:${{ steps.tag_version.outputs.VERSION }}
 
-  debug:
-    runs-on: ubuntu-latest
-    needs: [vars]
-    steps:
-      - run: echo ${{ needs.vars.outputs.image }}
-      - run: echo ${{ needs.vars.outputs.version }}
-      - run: echo ${{ github.repository }}
-
   build:
+    needs: [vars]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
