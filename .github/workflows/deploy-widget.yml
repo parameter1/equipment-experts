@@ -43,7 +43,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: vars
+    needs: [vars, build]
     steps:
     - name: Download compiled assets
       uses: actions/download-artifact@v2
