@@ -1,7 +1,6 @@
-name: Deploy GraphQL
+name: Deploy GraphQL service
 
 on:
-  workflow_dispatch:
   push:
     tags:
       - v*
