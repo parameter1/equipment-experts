@@ -1,7 +1,6 @@
 name: Deploy widget library
 
 on:
-  workflow_dispatch: # temporary!
   push:
     tags:
       - v*
@@ -11,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - id: tag_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//-latest}
+      run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
     outputs:
       version: ${{ steps.tag_version.outputs.VERSION }}
 
@@ -56,4 +55,4 @@ jobs:
         AWS_S3_BUCKET: cdn.parameter1.com
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        DEST_DIR: 'equipment-experts-widget/v${{ needs.vars.outputs.version }}'
+        DEST_DIR: 'equipment-experts-widget/${{ needs.vars.outputs.version }}'
