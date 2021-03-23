@@ -25,6 +25,13 @@ module.exports = merge({
       return cursor.toArray();
     },
     /**
+     * Returns all SearchIndexes for a content id
+     */
+    async findAll(_, { contentIds }, { repo }) {
+      const cursor = await repo.find({ query: { contentId: { $in: contentIds } } });
+      return cursor.toArray();
+    },
+    /**
      * Returns third-party data matching the search query (if present)
      */
     findIndustries(_, { query, page }, { client }) {

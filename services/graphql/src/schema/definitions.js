@@ -14,6 +14,9 @@ type Query {
   "Retrieves indexes for a content id."
   find(contentId: Int!): [SearchIndex!]!
 
+  "Retrieves indexes by content ids."
+  findAll(contentIds: [Int!]!): [SearchIndex!]!
+
   "Retrieves items from the EE Industries API"
   findIndustries(query: String, page: Int = 1): SearchResults!
 
