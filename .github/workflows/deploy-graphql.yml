@@ -20,7 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [vars]
     steps:
-      - run: echo ${{ needs.vars.outputs }}
+      - run: echo ${{ needs.vars.outputs.image }}
+      - run: echo ${{ needs.vars.outputs.version }}
+      - run: echo ${{ github.repository }}
 
   build:
     runs-on: ubuntu-latest
