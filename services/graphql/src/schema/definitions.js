@@ -44,8 +44,8 @@ type Mutation {
 type SearchIndex {
   id: ObjectID!
   contentId: Int!
-  industry: String!
-  manufacturer: String!
+  industry: String
+  manufacturer: String
   model: String
 }
 
