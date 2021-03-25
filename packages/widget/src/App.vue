@@ -1,6 +1,6 @@
 <template>
   <div class="tw-antialiased tw-bg-base-gray-1 tw-mx-auto tw-p-4 sm:tw-p-6 md:tw-p-8 tw-flex
-  tw-flex-col tw-my-5 tw-border tw-border-base-gray-9">
+  tw-flex-col tw-my-5 tw-border tw-border-base-gray-9 ee-widget">
     <div class="tw-pb-4">
       <h1 class="tw-text-xl tw-font-semibold tw-m-0">Experts Exchange</h1>
     </div>

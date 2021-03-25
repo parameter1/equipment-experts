@@ -2,6 +2,9 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const typography = require('@tailwindcss/typography');
 
 module.exports = {
+  corePlugins: {
+    preflight: false,
+  },
   plugins: [
     typography,
   ],

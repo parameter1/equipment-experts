@@ -5,6 +5,18 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
 
+.ee-widget *,
+.ee-widget ::before,
+.ee-widget ::after {
+  border-width: 0;
+  border-style: solid;
+  border-color: theme('borderColor.default', currentColor);
+}
+
+.ee-widget button {
+  cursor: pointer;
+}
+
 .ee-select.vue-treeselect__input {
   @apply focus:tw-ring-0;
 }
